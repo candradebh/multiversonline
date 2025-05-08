@@ -14,7 +14,7 @@ cluster:
 
 cilium:
 	ansible-playbook \
-		--inventory inventory.yml \
+		--inventory inventory.yml roles/cilium
 
 
 system:

@@ -3,12 +3,6 @@
   gather_facts: false
   tasks:
     - block:
-
-        - name: Print current directory
-          ansible.builtin.command: pwd
-          register: cwd_output
-          debug: var=cwd_output.stdout
-
         - name: Create ArgoCD namespace
           kubernetes.core.k8s:
             api_version: v1

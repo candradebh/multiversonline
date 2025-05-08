@@ -7,16 +7,20 @@ SUBMODULE_DIR = k3s-ansible
 PLAYBOOK_K3S_SITE = playbooks/site.yml
 PLAYBOOK_K3S_RESET = playbooks/reset.yml
 PLAYBOOK_K3S_CILIUM = ./roles/cilium.yml
+PLAYBOOK_K3S_HEML = ./roles/heml.yml
 
 
 KUBECONFIG = /etc/rancher/k3s/k3s.yml
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: k3s-ansible cilium
+default: k3s-ansible heml cilium
 
 k3s-ansible:
 	cd k3s-ansible && \
     	ansible-playbook $(PLAYBOOK_K3S_SITE) -i ../inventory.yml
+
+heml:
+	ansible-playbook $(PLAYBOOK_K3S_HEML) -i inventory.yml
 
 cilium:
 	ansible-playbook $(PLAYBOOK_K3S_CILIUM) -i inventory.yml

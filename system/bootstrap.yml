@@ -3,6 +3,7 @@
   gather_facts: false
   tasks:
     - block:
+
         - name: Print current directory
           ansible.builtin.command: pwd
           register: cwd_output

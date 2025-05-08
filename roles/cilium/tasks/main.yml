@@ -5,7 +5,7 @@
   when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
 
 - name: Uninstall cilium if it exists
-  shell: "helm uninstall cilium -n {{ cilium_namespace }} --kubeconfig /home/{{ ansible_user }}/.kube/config"
+  shell: "helm uninstall cilium -n {{ cilium_namespace }} --kubeconfig ~{{ ansible_user }}/.kube/config"
   ignore_errors: true
   when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
 

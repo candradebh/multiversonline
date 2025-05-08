@@ -15,8 +15,8 @@ argocd-apps:
     root:
       generators:
         - git:
-            repoURL: &repoURL https://github.com/candradebh/homelab1
-            revision: &revision master
+            repoURL: &repoURL https://github.com/candradebh/multiversonline
+            revision: &revision main
             directories:
               - path: system/*
               - path: platform/*

@@ -7,10 +7,6 @@ KUBE_CONFIG_PATH = $(KUBECONFIG)
 
 default: cluster cilium
 
-configure:
-	./scripts/configure
-	git status
-
 cluster:
 	ansible-playbook \
 		--inventory inventory.yml \

@@ -11,5 +11,5 @@
 
 - name: Install cilium chart
   command:
-    cmd: "helm install cilium cilium/cilium -n {{ cilium_namespace }} {{ cilium_values }} --kubeconfig /home/{{ ansible_user }}/.kube/config"
+    cmd: "helm upgrade --install cilium cilium/cilium -n {{ cilium_namespace }} {{ cilium_values }} --kubeconfig ~{{ ansible_user }}/.kube/config"
   when: ansible_host == hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0])

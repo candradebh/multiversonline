@@ -5,7 +5,7 @@
 KUBECONFIG = /etc/rancher/k3s/k3s.yml
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: cluster system external smoke-test post-install clean
+default: cluster cilium
 
 configure:
 	./scripts/configure
@@ -15,6 +15,11 @@ cluster:
 	ansible-playbook \
 		--inventory inventory.yml \
 		k3s-ansible/playbook/site.yml
+
+cilium:
+	ansible-playbook \
+		--inventory inventory.yml \
+
 
 system:
 	make -C system
@@ -40,8 +45,10 @@ restore:
 test:
 	make -C test
 
-clean:
-	docker compose --project-directory ./metal/roles/pxe_server/files down
+reset:
+	ansible-playbook \
+    		--inventory inventory.yml \
+    		k3s-ansible/playbook/reset.yml
 
 docs:
 	mkdocs serve

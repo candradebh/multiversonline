@@ -6,7 +6,7 @@
 SUBMODULE_DIR = k3s-ansible
 PLAYBOOK_K3S_SITE = playbooks/site.yml
 PLAYBOOK_K3S_RESET = playbooks/reset.yml
-PLAYBOOK_K3S_CILIUM = ./roles/cilium
+PLAYBOOK_K3S_CILIUM = ./roles/cilium.yml
 
 
 KUBECONFIG = /etc/rancher/k3s/k3s.yml

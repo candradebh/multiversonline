@@ -8,9 +8,7 @@ KUBE_CONFIG_PATH = $(KUBECONFIG)
 default: cluster cilium
 
 cluster:
-	ansible-playbook \
-		./k3s-ansible/playbooks/site.yml \
-		 	-i inventory.yml
+	make -C cluster
 
 cilium:
 	ansible-playbook ./roles/cilium -i inventory.yml

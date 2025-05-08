@@ -10,7 +10,7 @@ default: cluster cilium
 cluster:
 	ansible-playbook \
 		--inventory inventory.yml \
-		k3s-ansible/playbook/site.yml
+		./k3s-ansible/playbook/site.yml
 
 cilium:
 	ansible-playbook \

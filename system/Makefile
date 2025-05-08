@@ -5,4 +5,4 @@
 .PHONY: bootstrap
 bootstrap:
 	ansible-playbook bootstrap.yml \
-	-i ../inventory/my-cluster/hosts.ini
+	-i ../inventory.yml

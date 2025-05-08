@@ -1,5 +1,5 @@
 - name: Bootstrapping the cluster
-  hosts: master
+  hosts: server
   gather_facts: false
   tasks:
     - name: Create ArgoCD namespace
@@ -35,3 +35,4 @@
         apply: true
         server_side_apply:
           field_manager: argocd-controller
+  when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]

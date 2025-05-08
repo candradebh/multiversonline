@@ -5,10 +5,10 @@
 KUBECONFIG = /etc/rancher/k3s/k3s.yml
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: cluster cilium
+default: k3s-ansible cilium
 
-cluster:
-	make -C cluster
+k3s-ansible:
+	make -C k3s-ansible
 
 cilium:
 	ansible-playbook ./roles/cilium -i inventory.yml

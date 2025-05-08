@@ -1,0 +1,15 @@
+- name: Add cilium helm repo
+  kubernetes.core.helm_repository:
+    name: cilium
+    repo_url: "{{ cilium_repo_url }}"
+  when: ansible_host == hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0])
+
+- name: Uninstall cilium if it exists
+  shell: "helm uninstall cilium -n {{ cilium_namespace }} --kubeconfig /home/{{ ansible_user }}/.kube/config"
+  ignore_errors: true
+  when: ansible_host == hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0])
+
+- name: Install cilium chart
+  command:
+    cmd: "helm install cilium cilium/cilium -n {{ cilium_namespace }} {{ cilium_values }} --kubeconfig /home/{{ ansible_user }}/.kube/config"
+  when: ansible_host == hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0])

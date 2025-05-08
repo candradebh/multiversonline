@@ -2,16 +2,22 @@
 .PHONY: *
 .EXPORT_ALL_VARIABLES:
 
+
+SUBMODULE_DIR = k3s-ansible
+PLAYBOOK_K3S_SITE = playbooks/site.yml
+PLAYBOOK_K3S_RESET = playbooks/RESET.yml
+
 KUBECONFIG = /etc/rancher/k3s/k3s.yml
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
 default: k3s-ansible cilium
 
 k3s-ansible:
-	make -C k3s-ansible
+	cd k3s-ansible && \
+    	ansible-playbook $(PLAYBOOK_K3S_SITE) -i ../inventory.yml
 
 cilium:
-	ansible-playbook ./roles/cilium -i inventory-sample.yml
+	ansible-playbook ./roles/cilium -i inventory.yml
 
 system:
 	make -C system
@@ -38,9 +44,8 @@ test:
 	make -C test
 
 reset:
-	ansible-playbook \
-    		--inventory inventory.yml \
-    		k3s-ansible/playbook/reset.yml
+	cd k3s-ansible && \
+    	ansible-playbook $(PLAYBOOK_K3S_RESET) -i ../inventory.yml
 
 docs:
 	mkdocs serve

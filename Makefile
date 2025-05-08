@@ -5,7 +5,7 @@
 
 SUBMODULE_DIR = k3s-ansible
 PLAYBOOK_K3S_SITE = playbooks/site.yml
-PLAYBOOK_K3S_RESET = playbooks/RESET.yml
+PLAYBOOK_K3S_RESET = playbooks/reset.yml
 
 KUBECONFIG = /etc/rancher/k3s/k3s.yml
 KUBE_CONFIG_PATH = $(KUBECONFIG)

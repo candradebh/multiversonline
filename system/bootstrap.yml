@@ -8,6 +8,7 @@
         kind: Namespace
         name: argocd
         state: present
+      when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
 
     - name: Check if this is the first installation
       kubernetes.core.k8s_info:
@@ -17,6 +18,7 @@
         field_selectors:
           - status.phase=Running
       register: first_install
+      when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
 
     - name: Render ArgoCD manifests from Helm chart
       kubernetes.core.helm_template:
@@ -28,6 +30,7 @@
         values_files:
           - "argocd/{{ (first_install.resources | length == 0) | ternary('values-seed.yaml', 'values.yaml') }}"
       register: argocd_manifests
+      when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
 
     - name: Apply ArgoCD manifests
       kubernetes.core.k8s:
@@ -35,4 +38,5 @@
         apply: true
         server_side_apply:
           field_manager: argocd-controller
-  when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
+      when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
+

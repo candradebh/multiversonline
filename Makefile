@@ -11,7 +11,7 @@ k3s-ansible:
 	make -C k3s-ansible
 
 cilium:
-	ansible-playbook ./roles/cilium -i inventory.yml
+	ansible-playbook ./roles/cilium -i inventory-sample.yml
 
 system:
 	make -C system

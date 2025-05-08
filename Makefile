@@ -13,13 +13,13 @@ PLAYBOOK_K3S_HEML = ./roles/heml.yml
 KUBECONFIG = /etc/rancher/k3s/k3s.yml
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: k3s-ansible heml cilium
+default: k3s-ansible helm cilium
 
 k3s-ansible:
 	cd k3s-ansible && \
     	ansible-playbook $(PLAYBOOK_K3S_SITE) -i ../inventory.yml
 
-heml:
+helm:
 	ansible-playbook $(PLAYBOOK_K3S_HEML) -i inventory.yml
 
 cilium:

@@ -1,0 +1,29 @@
+# https://dash.cloudflare.com/profile
+cloudflare_email = "dev_carlos@outlook.com"
+# https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids
+cloudflare_account_id = "47537ff4caf5ec605d0cfb35a0a0f6edca"
+# https://dash.cloudflare.com/profile/api-tokens
+cloudflare_api_key = "934127229e8fb325b878a6bb5a9abcfbe432fca"
+
+kubeconfig = "~./kube/config"
+
+ntfy = {
+  # https://ntfy.sh or your own instance
+  url = "https://ntfy.sh"
+  # Your topic name
+  topic = "random_topic_name_here_a8sd7fkjxlkcjasdw33813"
+}
+
+extra_secrets = {
+  # Try to keep this to a minimum with third-party secrets
+  # Consider using the secret generator if possible
+  # ../platform/global-secrets/files/secret-generator/config.yaml
+  # Here's some examples of what you might want to add:
+  #
+  # wireguard-private-key = "wg genkey output here"
+  # tailscale-auth-key = "tskey-auth-xxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  # restic-password = "xxxxxxxxxxxxxxxxxxxxxxxx"
+  # restic-s3-bucket = "https://s3.amazonaws.com/my-homelab-backup-xxxxxxxxxx"
+  # restic-s3-access-key = "xxxxxxxxxxxxxxxx"
+  # restic-s3-secret-key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}

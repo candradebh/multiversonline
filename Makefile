@@ -9,8 +9,8 @@ PLAYBOOK_K3S_RESET = playbooks/reset.yml
 PLAYBOOK_K3S_CILIUM = ./roles/cilium.yml
 PLAYBOOK_K3S_HEML = ./roles/heml.yml
 
-
-KUBECONFIG = /etc/rancher/k3s/k3s.yml
+# KUBECONFIG = $(shell pwd)/metal/kubeconfig.yaml
+KUBECONFIG = /home/carlos/.kube/config
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
 default: k3s-ansible helm cilium system external

@@ -36,4 +36,5 @@ provider "cloudflare" {
 provider "kubernetes" {
   # Use KUBE_CONFIG_PATH environment variables
   # Or in cluster service account
+  #isso funcionou config_path = "/home/carlos/.kube/config"
 }

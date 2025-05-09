@@ -12,6 +12,10 @@ sudo ip addr del 192.168.1.48/32 dev ens18
 nix-shell -p python311Packages.ansible python311Packages.pyyaml
 
 
+
+## cONECTAR FONTE EXTERTAL 
+
+
 ## Instalar k3s para criar o controlpane
 
 ```

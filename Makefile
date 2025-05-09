@@ -13,7 +13,7 @@ PLAYBOOK_K3S_HEML = ./roles/heml.yml
 KUBECONFIG = /etc/rancher/k3s/k3s.yml
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: k3s-ansible helm cilium system
+default: k3s-ansible helm cilium system external
 
 k3s-ansible:
 	cd k3s-ansible && \

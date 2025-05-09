@@ -3,6 +3,27 @@
   gather_facts: false
   tasks:
     - block:
+
+        - name: Sincronizar projeto do host local para o nó master
+          ansible.posix.synchronize:
+            src: "../../"
+            dest: "/tmp/multiversonline/"
+            recursive: yes
+            delete: no
+            rsync_opts:
+              - "--exclude=.git"
+              - "--exclude=.idea/"
+              - "--exclude=.DS_Store"
+              - "--exclude=__pycache__"
+              - "--exclude=k3s-ansible/"
+          delegate_to: localhost
+          run_once: true
+
+
+        - name: Corrige permissões
+          ansible.builtin.command: chown -R root:root /tmp/multiversonline
+          become: true
+
         - name: Create ArgoCD namespace
           kubernetes.core.k8s:
             api_version: v1
@@ -21,20 +42,25 @@
 
         - name: Render ArgoCD manifests from Helm chart
           kubernetes.core.helm_template:
-            chart_ref: ./argocd/Chart.yaml
+            chart_ref: /tmp/multiversonline/system/argocd
             include_crds: true
             release_name: argocd
             release_namespace: argocd
             dependency_update: true
             values_files:
-              - "argocd/{{ (first_install.resources | length == 0) | ternary('values-seed.yaml', 'values.yaml') }}"
+              - "/tmp/multiversonline/system/argocd/{{ (first_install.resources | length == 0) | ternary('values-seed.yaml', 'values.yaml') }}"
           register: argocd_manifests
 
         - name: Apply ArgoCD manifests
           kubernetes.core.k8s:
-            resource_definition: "{{ argocd_manifests.stdout }}"
+            resource_definition: "{{ argocd_manifests.stdout | from_yaml_all }}"
             apply: true
             server_side_apply:
               field_manager: argocd-controller
+
+        - debug:
+            msg: "Total de recursos renderizados: {{ argocd_manifests.stdout | from_yaml_all | length }}"
+
+
 
       when: inventory_hostname == groups['server'][0]

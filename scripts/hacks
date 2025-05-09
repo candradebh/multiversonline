@@ -5,8 +5,8 @@ Quick and dirty script for things that I can't/don't have time to do properly ye
 TODO: retire this script
 """
 
+
 import base64
-import json
 import json
 import pexpect
 import requests

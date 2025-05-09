@@ -21,7 +21,7 @@
 
         - name: Render ArgoCD manifests from Helm chart
           kubernetes.core.helm_template:
-            chart_ref: ./argocd
+            chart_ref: ./argocd/Chart.yaml
             include_crds: true
             release_name: argocd
             release_namespace: argocd

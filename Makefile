@@ -13,7 +13,7 @@ PLAYBOOK_K3S_HEML = ./roles/heml.yml
 KUBECONFIG = /home/carlos/.kube/config
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: k3s-ansible helm cilium system external
+default: k3s-ansible helm cilium system external post-install
 
 k3s-ansible:
 	cd k3s-ansible && \

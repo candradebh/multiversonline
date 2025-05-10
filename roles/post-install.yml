@@ -1,5 +1,27 @@
-- name: Configure applications
-  hosts: server
-  become: true
-  roles:
-    - post-install
+- name: Bootstrapping the cluster
+  hosts: 192.168.1.9
+  gather_facts: false
+  tasks:
+    - block:
+
+        - name: Sincronizar projeto do host local para o nó master
+          ansible.posix.synchronize:
+            src: "../../"
+            dest: "/tmp/multiversonline/"
+            recursive: yes
+            delete: no
+            rsync_opts:
+              - "--exclude=.git"
+              - "--exclude=.idea/"
+              - "--exclude=.DS_Store"
+              - "--exclude=__pycache__"
+              - "--exclude=k3s-ansible/"
+          delegate_to: localhost
+          run_once: true
+
+        - name: Executar make post-install na pasta /tmp/multiversonline/
+          shell: |
+            cd /tmp/multiversonline/
+            make post-install
+
+      when: inventory_hostname == groups['server'][0]

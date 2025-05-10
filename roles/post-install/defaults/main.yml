@@ -1,5 +1,6 @@
 ---
-path_tmp_project: /tmp/multiversonline
+
+repo_url: https://github.com/candradebh/multiversonline.git
 ansible_user: root
 
 cluster_context: k3s-ansible  # noqa var-naming[no-role-prefix]

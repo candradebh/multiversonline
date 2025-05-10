@@ -1,0 +1,5 @@
+- name: Configure applications
+  hosts: server
+  become: true
+  roles:
+    - post-install.yml

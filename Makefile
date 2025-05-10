@@ -8,6 +8,7 @@ PLAYBOOK_K3S_SITE = playbooks/site.yml
 PLAYBOOK_K3S_RESET = playbooks/reset.yml
 PLAYBOOK_K3S_CILIUM = ./roles/cilium.yml
 PLAYBOOK_K3S_HEML = ./roles/heml.yml
+PLAYBOOK_K3S_POST_INSTALL = ./roles/post-install.yml
 
 # KUBECONFIG = $(shell pwd)/metal/kubeconfig.yaml
 KUBECONFIG = /home/carlos/.kube/config
@@ -25,6 +26,9 @@ helm:
 cilium:
 	ansible-playbook $(PLAYBOOK_K3S_CILIUM) -i inventory.yml
 
+post-install:
+	ansible-playbook $(PLAYBOOK_K3S_POST_INSTALL) -i inventory.yml
+
 system:
 	make -C system
 
@@ -34,8 +38,7 @@ external:
 smoke-test:
 	make -C test filter=Smoke
 
-post-install:
-	@./scripts/hacks
+
 
 # TODO maybe there's a better way to manage backup with GitOps?
 backup:

@@ -1,0 +1,9 @@
+- name: Executar make post-install na pasta ~/multiversonline
+  shell: |
+    cd /tmp/multiversonline/
+    make post-install
+  args:
+    chdir: /home/carlos/multiversonline
+  when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
+
+

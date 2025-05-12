@@ -4,7 +4,22 @@
 
 CRIAR AS VMS adicionar ipfixo no router
 
+habilitar root
 
+``` 
+sudo passwd root
+
+sudo nano /etc/ssh/sshd_config
+PermitRootLogin yes
+
+sudo systemctl restart ssh
+
+sudo hostnamectl set-hostname kubmaster1
+
+sudo nano /etc/hosts
+
+127.0.1.1  kubmaster1
+```
 
 ## Problemas 
 remova o ip adicionado pois nao encontrei onde ele adiciona isso.
@@ -36,12 +51,6 @@ kubectl get pod --all-namespaces
 ### Configurações
 
 ```
-echo 'export KUBECONFIG=/etc/rancher/k3s/k3s.yaml' >> ~/.bashrc
-echo 'export LC_ALL=C.UTF-8' >> ~/.bashrc
-echo 'export LANG=C.UTF-8' >> ~/.bashrc
-source ~/.bashrc
-
-
 
 ```
 
@@ -49,7 +58,7 @@ source ~/.bashrc
 
 Failed to connect to the host via ssh: carlos@192.168.1.12: Permission denied (publickey,password).
 ``` 
-ssh-copy-id -i ~/.ssh/id_rsa.pub carlos@192.168.1.6
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.1.50
 ```
 
 ### Instalar o Helm 

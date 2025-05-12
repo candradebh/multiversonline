@@ -1,5 +1,5 @@
 - name: Bootstrapping the cluster
-  hosts: 192.168.1.9
+  hosts: server
   gather_facts: false
   tasks:
     - block:

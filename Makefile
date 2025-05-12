@@ -14,11 +14,14 @@ PLAYBOOK_K3S_POST_INSTALL = ./roles/post-install.yml
 KUBECONFIG = /home/carlos/.kube/config
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: k3s-ansible helm cilium system external post-install
+default: k3s-ansible python-install helm cilium system external post-install
 
 k3s-ansible:
 	cd k3s-ansible && \
     	ansible-playbook $(PLAYBOOK_K3S_SITE) -i ../inventory.yml
+
+python-install:
+	ansible-playbook ./roles/python-install.yml -i inventory.yml
 
 helm:
 	ansible-playbook $(PLAYBOOK_K3S_HEML) -i inventory.yml

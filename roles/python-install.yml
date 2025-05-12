@@ -1,0 +1,28 @@
+- name: Instalar Python3, pip, Ansible e módulo kubernetes via Ansible
+  hosts: server
+  become: true  # necessário para instalações com apt/pip
+  tasks:
+    - name: Atualizar cache do apt e instalar Python3, pip e dependências
+      apt:
+        name:
+          - python3
+          - python3-pip
+          - software-properties-common
+        state: present
+        update_cache: true
+
+    - name: Garantir que o pip está atualizado
+      pip:
+        name: pip
+        executable: pip3
+        state: latest
+
+    - name: Instalar biblioteca kubernetes via pip
+      pip:
+        name: kubernetes
+        executable: pip3
+
+    - name: Instalar Ansible via pip
+      pip:
+        name: ansible
+        executable: pip3

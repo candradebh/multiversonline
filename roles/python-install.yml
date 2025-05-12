@@ -26,3 +26,8 @@
       pip:
         name: ansible
         executable: pip3
+
+    - name: Instalar o módulo Python 'rich'
+      pip:
+        name: rich
+        executable: pip3

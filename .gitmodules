@@ -3,7 +3,4 @@
 	url = https://github.com/candradebh/k3s-ansible.git
 	branch = master
 
-[submodule "ProxmoxVE"]
-	path = ProxmoxVE
-	url = https://github.com/candradebh/ProxmoxVE.git
-	branch = main
+

@@ -43,10 +43,10 @@ nix-shell -p python311Packages.ansible python311Packages.pyyaml
 ### KUB
 
 ``` 
-kubectl delete all --all -n gitea
-kubectl delete pvc --all -n gitea
-kubectl delete configmap --all -n gitea
-kubectl delete secret --all -n gitea
+kubectl delete all --all -n cilium
+kubectl delete pvc --all -n cilium
+kubectl delete configmap --all -n cilium
+kubectl delete secret --all -n cilium
 
 ```
 

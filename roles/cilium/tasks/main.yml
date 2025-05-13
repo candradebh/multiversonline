@@ -1,21 +1,37 @@
-- name: Uninstall cilium if it exists
-  shell: "helm uninstall cilium -n {{ cilium_namespace }} --kubeconfig ~{{ ansible_user }}/.kube/config"
-  ignore_errors: true
-  when: inventory_hostname == groups['server'][0]
+    - name: Uninstall Cilium (apenas no primeiro servidor)
+      shell: >
+        helm uninstall cilium -n {{ cilium_namespace }} --kubeconfig ~{{ ansible_user }}/.kube/config
+      ignore_errors: true
+      when: inventory_hostname == groups['server'][0]
 
-- name: Add cilium helm repo
-  kubernetes.core.helm_repository:
-    name: cilium
-    repo_url: "{{ cilium_repo_url }}"
-  ignore_errors: true
-  when: inventory_hostname == groups['server'][0]
+    - name: Add cilium helm repo
+      kubernetes.core.helm_repository:
+        name: cilium
+        repo_url: "{{ cilium_repo_url }}"
+      when: inventory_hostname == groups['server'][0]
+      ignore_errors: true
 
-- name: Install Cilium
-  kubernetes.core.helm:
-    name: cilium
-    chart_ref: cilium
-    chart_repo_url: "{{ cilium_repo_url }}"
-    chart_version: "{{ cilium_version }}"
-    release_namespace: "{{ cilium_namespace }}"
-    values: "{{ cilium_values }}"
-  when: inventory_hostname == groups['server'][0]
+    - name: Install cilium chart
+      command:
+        cmd: "helm upgrade --install cilium cilium/cilium -n {{ cilium_namespace }} {{ cilium_values }} --kubeconfig ~{{ ansible_user }}/.kube/config"
+      when: inventory_hostname == groups['server'][0]
+
+
+    - name: Wait for Cilium CRDs
+      kubernetes.core.k8s_info:
+        kind: CustomResourceDefinition
+        name: "{{ item }}"
+      loop:
+        - ciliuml2announcementpolicies.cilium.io
+        - ciliumloadbalancerippools.cilium.io
+      register: crd
+      until: crd.resources | length > 0
+      retries: 5
+      delay: 10
+
+    - name: Apply Cilium resources
+      kubernetes.core.k8s:
+        template: "{{ item }}"
+      loop:
+        - ciliuml2announcementpolicy.yaml
+        - ciliumloadbalancerippool.yaml

@@ -57,10 +57,10 @@ nix-shell -p python311Packages.ansible python311Packages.pyyaml
 ### KUB
 
 ``` 
-kubectl delete all --all -n cilium
-kubectl delete pvc --all -n cilium
-kubectl delete configmap --all -n cilium
-kubectl delete secret --all -n cilium
+kubectl delete all --all -n argocd
+kubectl delete pvc --all -n argocd
+kubectl delete configmap --all -n argocd
+kubectl delete secret --all -n argocd
 
 ```
 
@@ -103,9 +103,20 @@ helm version
 
 ```
 
-### Instalar o cilium
+### cilium
+
+problemas com desintalacao
+
+````
+kubectl get namespace cilium-secrets -o json > cilium-secrets.json
+nano cilium-secrets.json
+kubectl replace --raw "/api/v1/namespaces/cilium-secrets/finalize" -f ./cilium-secrets.json
+````
+
+
 
 ```
+
 helm repo add cilium https://helm.cilium.io
 helm repo update
 

@@ -6,8 +6,6 @@
 SUBMODULE_DIR = k3s-ansible
 PLAYBOOK_K3S_SITE = playbooks/site.yml
 PLAYBOOK_K3S_RESET = playbooks/reset.yml
-PLAYBOOK_K3S_CILIUM = ./roles/cilium.yml
-PLAYBOOK_K3S_HEML = ./roles/heml.yml
 PLAYBOOK_K3S_POST_INSTALL = ./roles/post-install.yml
 
 # KUBECONFIG = $(shell pwd)/metal/kubeconfig.yaml
@@ -24,10 +22,10 @@ python-install:
 	ansible-playbook ./roles/python-install.yml -i inventory.yml
 
 helm:
-	ansible-playbook $(PLAYBOOK_K3S_HEML) -i inventory.yml
+	ansible-playbook ./roles/heml.yml -i inventory.yml
 
 cilium:
-	ansible-playbook $(PLAYBOOK_K3S_CILIUM) -i inventory.yml
+	ansible-playbook ./roles/cilium.yml -i inventory.yml
 
 post-install:
 	@./scripts/hacks

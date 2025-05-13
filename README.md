@@ -20,7 +20,17 @@ sudo nano /etc/hosts
 
 127.0.1.1  kubmaster1
 ```
+System 
 
+DEX
+cloudflared
+renovate
+woodpecker
+zot
+gitea
+external-secrets
+
+plataform
 ## Problemas 
 remova o ip adicionado pois nao encontrei onde ele adiciona isso.
 sudo ip addr del 192.168.1.48/32 dev ens18
@@ -30,7 +40,15 @@ sudo ip addr del 192.168.1.48/32 dev ens18
 
 nix-shell -p python311Packages.ansible python311Packages.pyyaml
 
+### KUB
 
+``` 
+kubectl delete all --all -n gitea
+kubectl delete pvc --all -n gitea
+kubectl delete configmap --all -n gitea
+kubectl delete secret --all -n gitea
+
+```
 
 ## cONECTAR FONTE EXTERTAL 
 

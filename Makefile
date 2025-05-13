@@ -30,7 +30,7 @@ cilium:
 	ansible-playbook $(PLAYBOOK_K3S_CILIUM) -i inventory.yml
 
 post-install:
-	ansible-playbook $(PLAYBOOK_K3S_POST_INSTALL) -i inventory.yml
+	@./scripts/hacks
 
 system:
 	make -C system

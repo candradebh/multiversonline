@@ -31,6 +31,20 @@ gitea
 external-secrets
 
 plataform
+
+
+
+## UTIL 
+
+````
+# Copiar a config de um namespace para um aqrquibo json para editar
+kubectl get namespace cilium-secrets -o json > cilium-secrets.json
+ 
+# Para aplicar o arquivo editado: 
+kubectl replace --raw "/api/v1/namespaces/cilium-secrets/finalize" -f ./cilium-secrets.json
+
+````
+
 ## Problemas 
 remova o ip adicionado pois nao encontrei onde ele adiciona isso.
 sudo ip addr del 192.168.1.48/32 dev ens18

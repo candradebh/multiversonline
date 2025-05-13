@@ -1,15 +1,21 @@
+- name: Uninstall cilium if it exists
+  shell: "helm uninstall cilium -n {{ cilium_namespace }} --kubeconfig ~{{ ansible_user }}/.kube/config"
+  ignore_errors: true
+  when: inventory_hostname == groups['server'][0]
+
 - name: Add cilium helm repo
   kubernetes.core.helm_repository:
     name: cilium
     repo_url: "{{ cilium_repo_url }}"
-  when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
-
-- name: Uninstall cilium if it exists
-  shell: "helm uninstall cilium -n {{ cilium_namespace }} --kubeconfig ~{{ ansible_user }}/.kube/config"
   ignore_errors: true
-  when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
+  when: inventory_hostname == groups['server'][0]
 
-- name: Install cilium chart
-  command:
-    cmd: "helm upgrade --install cilium cilium/cilium -n {{ cilium_namespace }} {{ cilium_values }} --kubeconfig ~{{ ansible_user }}/.kube/config"
-  when: inventory_hostname == groups[server_group][0] or ansible_host == groups[server_group][0]
+- name: Install Cilium
+  kubernetes.core.helm:
+    name: cilium
+    chart_ref: cilium
+    chart_repo_url: "{{ cilium_repo_url }}"
+    chart_version: "{{ cilium_version }}"
+    release_namespace: "{{ cilium_namespace }}"
+    values: "{{ cilium_values }}"
+  when: inventory_hostname == groups['server'][0]

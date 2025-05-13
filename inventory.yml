@@ -25,7 +25,13 @@ k3s_cluster:
     api_endpoint: "{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"
 
     # Optional vars
-    extra_server_args: " --disable servicelb --disable traefik --disable local-storage"
+    extra_server_args: " --disable servicelb --disable traefik \
+                        --disable local-storage \
+                        --disable-helm-controller \
+                        --disable-kube-proxy \
+                        --disable-network-policy \
+                        --flannel-backend=none \
+                        --secrets-encryption"
     # extra_agent_args: ""
     # cluster_context: k3s-ansible
     # api_port: 6443

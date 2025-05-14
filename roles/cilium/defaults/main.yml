@@ -3,7 +3,7 @@
 cilium_iface: "ens18"
 cilium_namespace: "kube-system"
 cilium_repo_url: "https://helm.cilium.io/"
-cilium_values: "--set operator.replicas=1 --set kubeProxyReplacement=false --set l2announcements.enabled=true --set hubble.relay.enabled=true --set hubble.ui.enabled=true"
+cilium_values: "--set operator.replicas=1 --set hubble.relay.enabled=true --set hubble.ui.enabled=true"
 
 
 

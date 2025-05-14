@@ -1,9 +1,8 @@
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
-  name: default
+  name: blue-pool
 spec:
   blocks:
-    {% for cidr in load_balancer_ip_pool %}
-    - cidr: {{ cidr }}
-    {% endfor %}
+    - cidr: 192.168.1.192/27  # IPs de 192.168.1.192 até 192.168.1.223
+

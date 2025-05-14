@@ -4,5 +4,5 @@ metadata:
   name: blue-pool
 spec:
   blocks:
-    - cidr: 192.168.1.192/27  # IPs de 192.168.1.192 até 192.168.1.223
+    - cidr: {{ load_balancer_ip_pool }}
 

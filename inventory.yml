@@ -61,8 +61,7 @@ k3s_cluster:
     #   See https://docs.k3s.io/installation/private-registry
 
     system_timezone: "America/Sao_Paulo"
-    load_balancer_ip_pool:
-      - 192.168.1.224/27
+    load_balancer_ip_pool: 192.168.1.192/27
 
 
 

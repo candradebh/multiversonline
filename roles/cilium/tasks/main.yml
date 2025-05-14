@@ -1,9 +1,3 @@
-    - name: Uninstall Cilium (apenas no primeiro servidor)
-      shell: >
-        helm uninstall cilium -n {{ cilium_namespace }} --kubeconfig ~{{ ansible_user }}/.kube/config
-      ignore_errors: true
-      when: inventory_hostname == groups['server'][0]
-
     - name: Add cilium helm repo
       kubernetes.core.helm_repository:
         name: cilium

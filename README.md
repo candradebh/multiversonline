@@ -20,18 +20,37 @@ sudo nano /etc/hosts
 
 127.0.1.1  kubmaster1
 ```
-System 
 
-DEX
-cloudflared
-renovate
-woodpecker
-zot
-gitea
-external-secrets
+# Estrutura
 
-plataform
 
+                    ┌──────────────────────────────────┐
+                    │             SYSTEM               │
+                    │                                  │
+                    │  - Cilium (rede + segurança)     │
+                    │  - ArgoCD (GitOps)               │
+                    │  - ingress-nginx + cert-manager  │
+                    │  - external-dns + cloudflared    │
+                    │  - kured + volsync + rock-ceph   │
+                    │  - loki + kube-prometheus-stack  │
+                    └──────────────┬───────────────────┘
+                                   │
+                    ┌──────────────▼──────────────┐
+                    │          PLATFORM           │
+                    │                              │
+                    │  - Woodpecker CI/CD          │
+                    │  - Gitea (Git)               │
+                    │  - Renovate (auto update)    │
+                    │  - Zot (registro de imagem)  │
+                    │  - External-Secrets + DEX    │
+                    └──────────────┬───────────────┘
+                                   │
+                    ┌──────────────▼──────────────┐
+                    │            APPS             │
+                    │                              │
+                    │  ActualBudget, Jellyfin, etc │
+                    │  Wireguard, Tailscale        │
+                    └──────────────────────────────┘
 
 
 ## UTIL 

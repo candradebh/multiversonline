@@ -1,31 +1,38 @@
-- name: Add Portainer Helm repo
-  ansible.builtin.command:
-    cmd: helm repo add portainer https://portainer.github.io/k8s/
-  register: add_repo
-  changed_when: "'\"has been added\"' in add_repo.stdout or '\"already exists\"' in add_repo.stderr"
+- name: install portainer via helm
+  hosts: server
+  tasks:
+    - block:
 
-- name: Update Helm repositories
-  ansible.builtin.command:
-    cmd: helm repo update
+        - name: Add Portainer Helm repo
+          ansible.builtin.command:
+            cmd: helm repo add portainer https://portainer.github.io/k8s/
+          register: add_repo
+          changed_when: "'\"has been added\"' in add_repo.stdout or '\"already exists\"' in add_repo.stderr"
 
-- name: Create namespace for Portainer
-  kubernetes.core.k8s:
-    api_version: v1
-    kind: Namespace
-    name: portainer
-    state: present
+        - name: Update Helm repositories
+          ansible.builtin.command:
+            cmd: helm repo update
 
-- name: Install Portainer via Helm
-  ansible.builtin.command:
-    cmd: >
-      helm upgrade --install portainer portainer/portainer
-      --namespace portainer
-      --create-namespace
-      --set service.type=NodePort
-      --set service.nodePort=30779
-      --set ingress.enabled=true
-      --set ingress.className=nginx
-      --set ingress.hostname=portainer.homelab
-      --kubeconfig ~/.kube/config
-  register: helm_output
-  changed_when: "'deployed' in helm_output.stdout or 'upgraded' in helm_output.stdout"
+        - name: Create namespace for Portainer
+          kubernetes.core.k8s:
+            api_version: v1
+            kind: Namespace
+            name: portainer
+            state: present
+
+        - name: Install Portainer via Helm
+          ansible.builtin.command:
+            cmd: >
+              helm upgrade --install portainer portainer/portainer
+              --namespace portainer
+              --create-namespace
+              --set service.type=NodePort
+              --set service.nodePort=30779
+              --set ingress.enabled=true
+              --set ingress.className=nginx
+              --set ingress.hostname=portainer.homelab
+              --kubeconfig ~/.kube/config
+          register: helm_output
+          changed_when: "'deployed' in helm_output.stdout or 'upgraded' in helm_output.stdout"
+
+      when: inventory_hostname == groups[server_group][0]

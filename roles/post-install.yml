@@ -1,4 +1,4 @@
-- name: Bootstrapping the cluster
+- name: Post Install
   hosts: server
   gather_facts: false
   tasks:
@@ -24,4 +24,4 @@
             cd /tmp/multiversonline
             make post-install
 
-      when: inventory_hostname == groups['server'][0]
+      when: inventory_hostname == groups[server_group][0]

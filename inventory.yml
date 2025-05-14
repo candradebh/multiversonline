@@ -64,13 +64,6 @@ k3s_cluster:
 
 
 
-    # interface which will be used for cilium
-    cilium_iface: "ens18"
 
-    # desired values for cilium helm install
-    cilium_version: 1.17.3
-    cilium_namespace: "kube-system"
-    cilium_repo_url: "https://helm.cilium.io/"
-    cilium_values: "--set operator.replicas=1 --set kubeProxyReplacement=true --set l2announcements.enabled=true --set hubble.relay.enabled=true --set hubble.ui.enabled=true"
 
 

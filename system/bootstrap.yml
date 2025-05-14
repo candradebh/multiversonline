@@ -48,7 +48,7 @@
             release_namespace: argocd
             dependency_update: true
             values_files:
-              - "/tmp/multiversonline/system/argocd/values-seed.yaml"
+              - "/tmp/multiversonline/system/argocd/values.yaml"
           register: argocd_manifests
 
         - name: Apply ArgoCD manifests

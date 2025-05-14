@@ -25,10 +25,10 @@ helm:
 	ansible-playbook ./roles/heml.yml -i inventory.yml
 
 cilium:
-	ansible-playbook ./roles/cilium.yml -i inventory.yml -vvv
+	ansible-playbook ./roles/cilium.yml -i inventory.yml
 
 portainer:
-	ansible-playbook ./roles/portainer.yml -i inventory.yml -vvv
+	ansible-playbook ./roles/portainer.yml -i inventory.yml
 
 post-install:
 	@./scripts/hacks

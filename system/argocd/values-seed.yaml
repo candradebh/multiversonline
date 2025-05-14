@@ -10,6 +10,9 @@ argo-cd:
     metrics: *metrics
   redis:
     metrics: *metrics
+  applicationSet:
+    enabled: true
+
 argocd-apps:
   applicationsets:
     root:

@@ -1,5 +1,4 @@
 ---
-# interface which will be used for cilium
 cilium_iface: "ens18"
 cilium_version: 1.17.3
 cilium_namespace: "kube-system"

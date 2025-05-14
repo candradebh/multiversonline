@@ -2,30 +2,12 @@
       kubernetes.core.helm_repository:
         name: cilium
         repo_url: "{{ cilium_repo_url }}"
-      when: inventory_hostname == groups['server'][0]
+      when: inventory_hostname == groups[server_group][0]
       ignore_errors: true
 
     - name: Install cilium chart
       command:
         cmd: "helm upgrade --install cilium cilium/cilium -n {{ cilium_namespace }} {{ cilium_values }} --kubeconfig ~{{ ansible_user }}/.kube/config"
-      when: inventory_hostname == groups['server'][0]
+      when: inventory_hostname == groups[server_group][0]
 
 
-    - name: Wait for Cilium CRDs
-      kubernetes.core.k8s_info:
-        kind: CustomResourceDefinition
-        name: "{{ item }}"
-      loop:
-        - ciliuml2announcementpolicies.cilium.io
-        - ciliumloadbalancerippools.cilium.io
-      register: crd
-      until: crd.resources | length > 0
-      retries: 5
-      delay: 10
-
-    - name: Apply Cilium resources
-      kubernetes.core.k8s:
-        template: "{{ item }}"
-      loop:
-        - ciliuml2announcementpolicy.yaml
-        - ciliumloadbalancerippool.yaml

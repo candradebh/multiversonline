@@ -28,9 +28,6 @@
               --create-namespace
               --set service.type=NodePort
               --set service.nodePort=30779
-              --set ingress.enabled=true
-              --set ingress.className=nginx
-              --set ingress.hostname=portainer.homelab
               --kubeconfig ~/.kube/config
           register: helm_output
           changed_when: "'deployed' in helm_output.stdout or 'upgraded' in helm_output.stdout"

@@ -134,14 +134,20 @@ kubectl replace --raw "/api/v1/namespaces/cilium-secrets/finalize" -f ./cilium-s
 
 
 
+
 ```
 
 helm repo add cilium https://helm.cilium.io
 helm repo update
 
-helm install cilium cilium/cilium \
-  --version 1.17.3 \
-  --namespace kube-system \
+API_SERVER_IP=127.0.0.1
+# Kubeadm default is 6443
+API_SERVER_PORT=6443
+helm install cilium cilium/cilium --version 1.17.3 \
+    --namespace kube-system \
+    --set kubeProxyReplacement=true \
+    --set k8sServiceHost=${API_SERVER_IP} \
+    --set k8sServicePort=${API_SERVER_PORT}
 
 cilium version
 

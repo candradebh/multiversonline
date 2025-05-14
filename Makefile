@@ -25,7 +25,7 @@ helm:
 	ansible-playbook ./roles/heml.yml -i inventory.yml
 
 cilium:
-	ansible-playbook ./roles/cilium.yml -i inventory.yml
+	ansible-playbook ./roles/cilium.yml -i inventory.yml -vvv
 
 post-install:
 	@./scripts/hacks

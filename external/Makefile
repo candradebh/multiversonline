@@ -19,5 +19,5 @@ namespaces:
 plan: .terraform.lock.hcl
 	tofu plan
 
-apply: .terraform.lock.hcl namespaces
+apply: .terraform.lock.hcl
 	tofu apply -auto-approve

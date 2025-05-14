@@ -63,4 +63,4 @@
 
 
 
-      when: inventory_hostname == groups['server'][0]
+      when: inventory_hostname == groups[server_group][0]

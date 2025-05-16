@@ -325,4 +325,10 @@ kubectl get pods -A
 
 ---
 
+
+## CLOUDFLARED
+
+Ref.: https://github.com/cloudflare/cloudflared
+
+
 Desenvolvido com <3 por Carlos Andrade

@@ -23,6 +23,7 @@ sudo nano /etc/hosts
 
 # Estrutura
 
+```
 
                     ┌──────────────────────────────────┐
                     │             SYSTEM               │
@@ -52,6 +53,7 @@ sudo nano /etc/hosts
                     │  Wireguard, Tailscale        │
                     └──────────────────────────────┘
 
+```
 
 ## UTIL 
 

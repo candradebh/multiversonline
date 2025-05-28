@@ -1,5 +1,52 @@
-# MultiVersOnline
+# 🏡 Homelab Multiverso Online
 
+Este repositório define a infraestrutura do projeto **Homelab Multiverso Online**, uma nuvem caseira automatizada com foco em aprendizado, hospedagem de serviços e GitOps.
+
+## 📀 Infraestrutura
+- **Hypervisor**: Proxmox
+- **Orquestrador**: Kubernetes (K3s)
+- **Provisionamento**: OpenTofu
+- **Fluxo GitOps**: FluxCD
+- **DNS/Túnel Seguro**: Cloudflare
+- **Scripts & Automacoes**: Makefile + Bash/Python
+
+## ⚙️ Principais Componentes
+- **Gitea**: Git self-hosted
+- **ArgoCD**: Deploy GitOps
+- **ntfy**: Notificações via webhook
+- **Pi-hole**: DNS e bloqueio de propagandas
+- **Secrets & Configs**: Armazenados em Kubernetes (namespaces dedicados)
+
+## ✨ Objetivos
+- Centralizar e automatizar o deploy de aplicações
+- Aprendizado em DevOps, Kubernetes, GitOps
+- Hospedar serviços web, páginas e ferramentas pessoais
+
+## ⚡ Tecnologias Utilizadas
+- Proxmox VE 8
+- Ubuntu Server (como base nas VMs)
+- K3s Kubernetes
+- OpenTofu (Terraform fork)
+- FluxCD
+- Helm
+- Cloudflare API
+
+## 🔧 Execução
+
+```bash
+# Inicializa provisionamento externo
+make external
+
+# Instala secrets, ArgoCD, ntfy, etc
+make post-install
+
+# Verifica pods rodando
+kubectl get pods -A
+```
+
+
+# Pre-requisitos
+ 
 ## CRIAR VMS
 
 CRIAR AS VMS adicionar ipfixo no router
@@ -219,7 +266,7 @@ curl -X GET "https://api.cloudflare.com/client/v4/user/tokens/verify" \
 ```
 
 ## TUNEL
-cloudflared.exe service install eyJhIjoiNDc1MzdmZjRjYWY1ZWM2MDVkMGNmYjM1YTBhMGY2ZWQiLCJ0IjoiMzJiZWNlZGItMWNiZC00Y2RlLWI2YzctOWUxNjYzZWU0ODQ1IiwicyI6Ik5XSmpZbUl4TURBdE1USm1PUzAwTURSaUxUaGtaVFV0WlRka01EazFNREV5WkRjNCJ9
+cloudflared.exe service install eyJhIjoiNDc1MzdmZjRjYWY1ZWM2MDVkMGNmYjM1YTBhMGY2ZWQiLCJ0IjoiMzJiZWNlZGItMWNiZC00Y2RlLWI2YzctOWUxNjYzZWU0ODQ1IiwicyI6Ik5XSmpZbUl4TURBdE1USm1PUzAwTURSaUxUaGtaVFV0WlRka01EazFNREV5WkRjNCJ9CA
 
 
 ## TEM QUE INSTALAR 
@@ -277,51 +324,6 @@ gotestsum --format testname -- -timeout 5m -run "ArgoCDCheck"
 
 
 
-# 🏡 Homelab Multiverso Online
-
-Este repositório define a infraestrutura do projeto **Homelab Multiverso Online**, uma nuvem caseira automatizada com foco em aprendizado, hospedagem de serviços e GitOps.
-
-## 📀 Infraestrutura
-- **Hypervisor**: Proxmox
-- **Orquestrador**: Kubernetes (K3s)
-- **Provisionamento**: OpenTofu
-- **Fluxo GitOps**: FluxCD
-- **DNS/Túnel Seguro**: Cloudflare
-- **Scripts & Automacoes**: Makefile + Bash/Python
-
-## ⚙️ Principais Componentes
-- **Gitea**: Git self-hosted
-- **ArgoCD**: Deploy GitOps
-- **ntfy**: Notificações via webhook
-- **Pi-hole**: DNS e bloqueio de propagandas
-- **Secrets & Configs**: Armazenados em Kubernetes (namespaces dedicados)
-
-## ✨ Objetivos
-- Centralizar e automatizar o deploy de aplicações
-- Aprendizado em DevOps, Kubernetes, GitOps
-- Hospedar serviços web, páginas e ferramentas pessoais
-
-## ⚡ Tecnologias Utilizadas
-- Proxmox VE 8
-- Ubuntu Server (como base nas VMs)
-- K3s Kubernetes
-- OpenTofu (Terraform fork)
-- FluxCD
-- Helm
-- Cloudflare API
-
-## 🔧 Execução
-
-```bash
-# Inicializa provisionamento externo
-make external
-
-# Instala secrets, ArgoCD, ntfy, etc
-make post-install
-
-# Verifica pods rodando
-kubectl get pods -A
-```
 
 ---
 

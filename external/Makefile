@@ -1,6 +1,6 @@
 .POSIX:
 
-default: apply
+default: namespaces apply
 
 ~/.terraform.d/credentials.tfrc.json:
 	tofu login

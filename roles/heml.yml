@@ -4,3 +4,18 @@
   become: true
   roles:
     - helm
+
+- name: Cria namespaces Kubernetes necessários
+  hosts: server
+  become: true
+  tasks:
+    - name: Cria os namespaces
+      kubernetes.core.k8s:
+        state: present
+        kind: Namespace
+        name: "{{ item }}"
+      loop:
+        - cloudflared
+        - external-dns
+        - cert-manager
+        - global-secrets

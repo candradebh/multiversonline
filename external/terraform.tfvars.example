@@ -1,12 +1,12 @@
 # https://dash.cloudflare.com/profile
-cloudflare_email = "dev_carlos@outlook.com"
+cloudflare_email = "carlos@outlook.com"
 # https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids
-cloudflare_account_id = "47537ff4caf5ec605d0cfb35a0a0f6edca"
+cloudflare_account_id = "47537ff4caf5eCAc605d0cfb35a0a0f6ed"
 # https://dash.cloudflare.com/profile/api-tokens
-cloudflare_api_key = "934127229e8fb325b878a6bb5a9abcfbe432fca"
+cloudflare_api_key = "934127229e8fbCA325b878a6bb5a9abcfbe432f"
 
 # caminho do arquivo de configuracao na pasta do usuario
-kubeconfig = "~./kube/config"
+kubeconfig = "~/.kube/config"
 
 ntfy = {
   # https://ntfy.sh or your own instance

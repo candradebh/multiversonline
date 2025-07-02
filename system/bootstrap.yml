@@ -16,6 +16,7 @@
               - "--exclude=.DS_Store"
               - "--exclude=__pycache__"
               - "--exclude=k3s-ansible/"
+              - "--exclude=ProxmoxVE/"
           delegate_to: localhost
           run_once: true
 
@@ -31,7 +32,7 @@
             name: argocd
             state: present
 
-        - name: Check if this is the first installation
+        - name: Verificar se é a primeira instalação
           kubernetes.core.k8s_info:
             kind: Pod
             label_selectors:
@@ -57,10 +58,7 @@
             apply: true
 
 
-
         - debug:
             msg: "Total de recursos renderizados: {{ argocd_manifests.stdout | from_yaml_all | length }}"
-
-
 
       when: inventory_hostname == groups[server_group][0]

@@ -9,10 +9,10 @@ PLAYBOOK_K3S_RESET = playbooks/reset.yml
 PLAYBOOK_K3S_POST_INSTALL = ./roles/post-install.yml
 
 # KUBECONFIG = $(shell pwd)/metal/kubeconfig.yaml
-KUBECONFIG = /home/carlos/.kube/config
+KUBECONFIG = ~/.kube/config
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: k3s-ansible python-install helm cilium system external post-install
+default: k3s-ansible python-install helm cilium portainer system external post-install
 
 k3s-ansible:
 	cd k3s-ansible && \

@@ -34,6 +34,10 @@ Este repositório define a infraestrutura do projeto **Homelab Multiverso Online
 ## 🔧 Execução
 
 ```bash
+
+# Cria e configura o cluster kubernets
+make k3s-ansible
+
 # Inicializa provisionamento externo
 make external
 
@@ -43,6 +47,9 @@ make post-install
 # Verifica pods rodando
 kubectl get pods -A
 ```
+
+
+
 
 
 # Pre-requisitos
@@ -67,6 +74,16 @@ sudo nano /etc/hosts
 
 127.0.1.1  kubmaster1
 ```
+
+
+# Clonar o repositório
+
+```
+git clone git@github.com:candradebh/multiversonline.git
+```
+
+
+
 
 # Estrutura
 
@@ -132,7 +149,7 @@ kubectl delete secret --all -n argocd
 
 ```
 
-## cONECTAR FONTE EXTERTAL 
+## CONECTAR FONTE EXTERTAL 
 
 
 ## Instalar k3s para criar o controlpane

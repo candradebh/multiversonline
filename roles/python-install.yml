@@ -31,3 +31,8 @@
       pip:
         name: rich
         executable: pip3
+
+    - name: Instalar o módulo Python 'openshift'
+      pip:
+        name: openshift
+        executable: pip3

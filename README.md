@@ -60,7 +60,34 @@ kubectl get pods -A
 ```
 
 
+###############################
+ADICIONAR O METAL LB NO DELOY
 
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.5/config/manifests/metallb-native.yaml
+
+# metallb-config.yaml
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+name: lb-pool
+namespace: metallb-system
+spec:
+addresses:
+- 192.168.1.240-192.168.1.250
+
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+name: lb-adv
+namespace: metallb-system
+
+
+
+kubectl apply -f metallb-config.yaml
+
+
+###############################
 
 
 # Pre-requisitos
@@ -153,10 +180,11 @@ nix-shell -p python311Packages.ansible python311Packages.pyyaml
 ### KUB
 
 ``` 
-kubectl delete all --all -n argocd
-kubectl delete pvc --all -n argocd
-kubectl delete configmap --all -n argocd
-kubectl delete secret --all -n argocd
+kubectl delete pods --all -n dex
+kubectl delete all --all -n dex
+kubectl delete pvc --all -n dex
+kubectl delete configmap --all -n dex
+kubectl delete secret --all -n dex
 
 ```
 

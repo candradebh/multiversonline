@@ -1,11 +1,12 @@
 ---
+load_balancer_ip_pool: "192.168.1.192/27"
 cilium_iface: "ens18"
-cilium_version: 1.17.3
+cilium_version: 1.17.5
 cilium_namespace: "kube-system"
 cilium_repo_url: "https://helm.cilium.io/"
 cilium_values: " --set operator.replicas=1 \
                  --set kubeProxyReplacement=true \
-                 --set k8sServiceHost=127.0.0.1 \
+                 --set k8sServiceHost={{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }} \
                  --set k8sServicePort=6443 \
                  --set hubble.relay.enabled=true  \
                  --set hubble.ui.enabled=true "

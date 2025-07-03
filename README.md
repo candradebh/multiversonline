@@ -38,11 +38,22 @@ Este repositório define a infraestrutura do projeto **Homelab Multiverso Online
 # Cria e configura o cluster kubernets
 make k3s-ansible
 
-# Inicializa provisionamento externo
-make external
+make helm
 
-# Instala secrets, ArgoCD, ntfy, etc
+make cillium
+
+make namespaces
+
+make system 
+
+# entrei na maquina e executei o tofu aply de la 
+tofu apply -auto-aprove
+
+# nunca consegui
 make post-install
+
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
+vKRkgP3PozkwuZtJ
 
 # Verifica pods rodando
 kubectl get pods -A

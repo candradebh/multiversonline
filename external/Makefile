@@ -1,6 +1,6 @@
 .POSIX:
 
-default: namespaces apply
+default: apply
 
 ~/.terraform.d/credentials.tfrc.json:
 	tofu login
@@ -12,9 +12,6 @@ terraform.tfvars:
 .terraform.lock.hcl: ~/.terraform.d/credentials.tfrc.json versions.tf terraform.tfvars
 	tofu init
 	touch ${@}
-
-namespaces:
-	ansible-playbook namespaces.yml -i ../inventory.yml
 
 plan: .terraform.lock.hcl
 	tofu plan

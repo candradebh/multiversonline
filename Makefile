@@ -12,7 +12,7 @@ PLAYBOOK_K3S_POST_INSTALL = ./roles/post-install.yml
 KUBECONFIG = ~/.kube/config
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: k3s-ansible python-install helm cilium external system  post-install
+default: k3s-ansible python-install namespaces helm cilium metal-lb external system  post-install
 
 k3s-ansible:
 	cd k3s-ansible && \
@@ -20,6 +20,12 @@ k3s-ansible:
 
 python-install:
 	ansible-playbook ./roles/python-install.yml -i inventory.yml
+
+namespaces:
+	ansible-playbook ./roles/namespaces.yml -i inventory.yml
+
+metal-lb:
+	ansible-playbook ./roles/metal-lb.yml -i inventory.yml
 
 helm:
 	ansible-playbook ./roles/heml.yml -i inventory.yml

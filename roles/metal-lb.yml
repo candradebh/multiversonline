@@ -1,0 +1,45 @@
+- name: Instalação e configuração do MetalLB
+  hosts: server
+  tasks:
+    - name: Garantir que o namespace metallb-system exista
+      kubernetes.core.k8s:
+        api_version: v1
+        kind: Namespace
+        name: metallb-system
+        state: present
+      when: inventory_hostname == groups['server'][0]
+
+    - name: Aplicar manifest oficial do MetalLB (native mode)
+      ansible.builtin.shell: |
+        kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.5/config/manifests/metallb-native.yaml
+      when: inventory_hostname == groups['server'][0]
+
+    - name: Esperar CRDs do MetalLB estarem disponíveis
+      ansible.builtin.pause:
+        seconds: 10
+      when: inventory_hostname == groups['server'][0]
+
+    - name: Aplicar IPAddressPool
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: metallb.io/v1beta1
+          kind: IPAddressPool
+          metadata:
+            name: lb-pool
+            namespace: metallb-system
+          spec:
+            addresses:
+              - 192.168.1.240-192.168.1.250
+      when: inventory_hostname == groups['server'][0]
+
+    - name: Aplicar L2Advertisement
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: metallb.io/v1beta1
+          kind: L2Advertisement
+          metadata:
+            name: lb-adv
+            namespace: metallb-system
+      when: inventory_hostname == groups['server'][0]

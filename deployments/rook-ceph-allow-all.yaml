@@ -1,0 +1,13 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: rook-ceph-allow-all
+  namespace: rook-ceph
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - matchLabels: {}
+  egress:
+    - toEndpoints:
+        - matchLabels: {}

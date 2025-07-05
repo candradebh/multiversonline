@@ -1,6 +1,6 @@
 argo-cd:
   global:
-    domain: multiversonline.com.br
+    domain: argocd.multiversonline.com.br
   configs:
     params:
       server.insecure: true
@@ -35,7 +35,7 @@ argocd-apps:
       namespace: argocd
       generators:
         - git:
-            repoURL: &repoURL https://github.com/candradebh/multiversonline
+            repoURL: &repoURL http://gitea-http.gitea:3000/ops/multiversonline
             revision: &revision main
             directories:
               - path: system/*

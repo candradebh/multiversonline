@@ -49,13 +49,15 @@
             release_namespace: argocd
             dependency_update: true
             values_files:
-              - "/tmp/multiversonline/system/argocd/values-seed.yaml"
+              - "/tmp/multiversonline/system/argocd/{{ (first_install.resources | length == 0) | ternary('values-seed.yaml', 'values.yaml') }}"
           register: argocd_manifests
 
         - name: Apply ArgoCD manifests
           kubernetes.core.k8s:
             resource_definition: "{{ argocd_manifests.stdout | from_yaml_all }}"
             apply: true
+            server_side_apply:
+              field_manager: argocd-controller
 
 
         - debug:

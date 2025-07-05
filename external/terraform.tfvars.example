@@ -1,12 +1,12 @@
 # https://dash.cloudflare.com/profile
-cloudflare_email = "carlos@outlook.com"
+cloudflare_email = "desos@outlook.com"
 # https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids
-cloudflare_account_id = "47537ff4caf5eCAc605d0cfb35a0a0f6ed"
+cloudflare_account_id = "47537ff4caf5ec605CAd0cfb35a0a0f6ed"
 # https://dash.cloudflare.com/profile/api-tokens
 cloudflare_api_key = "934127229e8fbCA325b878a6bb5a9abcfbe432f"
 
 # caminho do arquivo de configuracao na pasta do usuario
-kubeconfig = "~/.kube/config"
+#kubeconfig = "~/.kube/config"
 
 ntfy = {
   # https://ntfy.sh or your own instance
@@ -21,8 +21,8 @@ extra_secrets = {
   # ../platform/global-secrets/files/secret-generator/config.yaml
   # Here's some examples of what you might want to add:
   #
-  # wireguard-private-key = "wg genkey output here"
-  # tailscale-auth-key = "tskey-auth-xxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    wireguard-private-key = "0NJ/pK+W4He0ApP966LZiax6X7XuqTMMFu3qZ4CA8vPHo=0/aPzqgG+meJWwTlbwZsgb7W1HSCiazIBim5LxsY8js="
+  # tailscale-auth-key = "tskey-auth-kBe7VMs1EB21CNTRL-4GN9eDs1Up9VUqLV1mCAgbp94KoyEFHUE1"
   # restic-password = "xxxxxxxxxxxxxxxxxxxxxxxx"
   # restic-s3-bucket = "https://s3.amazonaws.com/my-homelab-backup-xxxxxxxxxx"
   # restic-s3-access-key = "xxxxxxxxxxxxxxxx"

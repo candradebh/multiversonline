@@ -60,6 +60,21 @@ kubectl get pods -A
 ```
 
 
+## APOS INSTALACAO
+
+Em kubmaster1
+
+
+kubectl exec -it -n kanidm statefulset/kanidm -- kanidmd recover-account admin
+Z1QMrLQAAN012c73xSkB4a03CAeE188Wwu5BkgVhPbqTRSZ9B8
+
+kubectl exec -it -n kanidm statefulset/kanidm -- kanidmd recover-account idm_admin
+
+ucbN0VV3MYQhLpA8WcBRjZZxxQvq9dhSLdS0RCr1wMJAahzF
+
+
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
 ###############################
 ADICIONAR O METAL LB NO DELOY
 

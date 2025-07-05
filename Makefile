@@ -12,7 +12,7 @@ PLAYBOOK_K3S_POST_INSTALL = ./roles/post-install.yml
 KUBECONFIG = ~/.kube/config
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: k3s-ansible python-install namespaces helm cilium
+default: k3s-ansible namespaces python-install helm cilium
 
 # para ajustar external (tem que rodar dentro do cluster)  system  post-install (nunca funcionou)
 k3s-ansible:

@@ -20,17 +20,9 @@
           delegate_to: localhost
           run_once: true
 
-
         - name: Corrige permissões
           ansible.builtin.command: chown -R root:root /tmp/multiversonline
           become: true
-
-        - name: Create ArgoCD namespace
-          kubernetes.core.k8s:
-            api_version: v1
-            kind: Namespace
-            name: argocd
-            state: present
 
         - name: Verificar se é a primeira instalação
           kubernetes.core.k8s_info:
@@ -58,7 +50,6 @@
             apply: true
             server_side_apply:
               field_manager: argocd-controller
-
 
         - debug:
             msg: "Total de recursos renderizados: {{ argocd_manifests.stdout | from_yaml_all | length }}"

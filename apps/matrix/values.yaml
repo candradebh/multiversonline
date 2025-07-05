@@ -4,7 +4,7 @@ elementweb:
     className: nginx
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-      external-dns.alpha.kubernetes.io/target: "homelab.multiversonline.com.br"
+      external-dns.alpha.kubernetes.io/target: "homelab-tunnel.multiversonline.com.br"
       external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
     hosts:
       - host: &frontend_host chat.multiversonline.com.br

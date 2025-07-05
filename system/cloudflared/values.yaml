@@ -16,7 +16,7 @@ app-template:
       enabled: true
       data:
         config.yaml: |
-          tunnel: homelab
+          tunnel: homelab-tunnel
           credentials-file: /etc/cloudflared/credentials.json
           metrics: 0.0.0.0:2000
           no-autoupdate: true

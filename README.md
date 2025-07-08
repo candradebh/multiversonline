@@ -395,7 +395,61 @@ gotestsum --format testname -- -timeout 5m -run "ArgoCDCheck"
 
 
 
+## MIGRACAO GODADY
 
----
+Apontar para cloudflare em registro.br
+```
+sudo nano /etc/apache2/sites-available/embalardesc.com.br.conf
+```
+
+```
+<VirtualHost *:9004>
+    ServerName embalardesc.com.br
+    ServerAlias www.embalardesc.com.br
+
+    DocumentRoot /sites/embalardesc/public
+
+    <Directory /sites/embalardesc/public>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/embalardesc_error.log
+    CustomLog ${APACHE_LOG_DIR}/embalardesc_access.log combined
+</VirtualHost>
+```
+
+sudo a2ensite embalardesc.com.br.conf
+
+
+
+```
+cd /sites/embalardesc/public
+sudo wget https://wordpress.org/latest.zip
+sudo unzip latest.zip
+sudo mv wordpress/* .
+sudo rm -rf wordpress latest.zip
+```
+
+```
+sudo chown -R www-data:www-data /sites/embalardesc/public
+sudo find /sites/embalardesc/public -type d -exec chmod 755 {} \;
+sudo find /sites/embalardesc/public -type f -exec chmod 644 {} \;
+```
+
+sudo chown -R www-data:www-data /sites/flabelltda/public
+sudo find /sites/flabelltda/public -type d -exec chmod 755 {} \;
+sudo find /sites/flabelltda/public -type f -exec chmod 644 {} \;
+
+````
+cd /sites/oficinadoalberto/public
+sudo cp wp-config-sample.php wp-config.php
+
+# dados do banco
+sudo nano wp-config.php
+
+````
+
 
 Desenvolvido com <3 por Carlos Andrade

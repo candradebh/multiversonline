@@ -422,12 +422,13 @@ sudo nano /etc/apache2/sites-available/embalardesc.com.br.conf
 
 sudo a2ensite embalardesc.com.br.conf
 
+unzip cgi-bin.zip -d /sites/embalardesc/public
 
-
+PORTS 
 ```
 cd /sites/embalardesc/public
 sudo wget https://wordpress.org/latest.zip
-sudo unzip latest.zip
+sudo unzip latest.zip -d /sites/embalardesc/public
 sudo mv wordpress/* .
 sudo rm -rf wordpress latest.zip
 ```

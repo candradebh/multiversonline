@@ -505,5 +505,14 @@ ok: [192.168.1.50] => {
 PLAY RECAP *****************************************************
 ```
 
+CRiando na mao
+
+kubectl create secret generic kanidm.dex \
+--from-literal=client_id=meu-client-id \
+--from-literal=client_secret=meu-client-secret \
+-n global-secrets --dry-run=client -o yaml | kubectl apply -f -
+
+
+
 
 Desenvolvido com <3 por Carlos Andrade

@@ -39,5 +39,11 @@
       length: 32
       special: true
 
+# Kanidm
+- name: kanidm.dex
+  data:
+    - key: client_secret
+      length: 32
+      special: false
 
 

@@ -12,9 +12,9 @@ PLAYBOOK_K3S_POST_INSTALL = ./roles/post-install.yml
 KUBECONFIG = ~/.kube/config
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: k3s-ansible namespaces copy-project python-install helm cilium make-master
+default: k3s-ansible namespaces copy-project python-install helm cilium make-master passwords
 
-cluster: k3s-ansible namespaces copy-project python-install helm cilium make-master
+cluster: k3s-ansible namespaces copy-project python-install helm cilium make-master passwords
 
 apps: namespaces copy-project cilium make-master passwords
 
@@ -46,7 +46,10 @@ make-master:
 	ansible-playbook ./roles/make-master.yml -i inventory.yml
 
 passwords:
-	ansible-playbook ./roles/senhas.yml -i inventory.yml > logs/senhas.log 2>&1
+	ansible-playbook ./roles/passwords.yml -i inventory.yml > logs/passwords_make.log
+
+kanidm-recovery-pass:
+	ansible-playbook ./roles/reset_kanin_pass.yml -i inventory.yml > logs/kanin_pass_make.log 2>&1
 
 portainer:
 	ansible-playbook ./roles/portainer.yml -i inventory.yml

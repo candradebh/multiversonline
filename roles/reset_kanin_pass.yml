@@ -1,0 +1,31 @@
+- hosts: server
+  gather_facts: false
+  tasks:
+
+    - name: Recuperar conta admin kanindm
+      ansible.builtin.shell: |
+        kubectl exec -it -n kanidm statefulset/kanidm -- kanidmd recover-account admin
+      register: admin_recovery
+      changed_when: false
+
+    - debug:
+        msg: "Saída da recuperação da conta 'admin': {{ admin_recovery.stdout_lines }}"
+
+    - name: Recuperar conta idm_admin
+      ansible.builtin.shell: |
+        kubectl exec -it -n kanidm statefulset/kanidm -- kanidmd recover-account idm_admin
+      register: idm_admin_recovery
+      changed_when: false
+
+    - debug:
+        msg: "Saída da recuperação da conta 'idm_admin': {{ idm_admin_recovery.stdout_lines }}"
+
+    - name: Gravar saída das senhas em arquivo local
+      copy:
+        content: |
+          Kanidm Admin: {{ admin_recovery.stdout_lines }}
+          kanidm Idm Admin: {{ idm_admin_recovery.stdout_lines }}
+        dest: /tmp/kanin_pass_output.log
+
+
+  

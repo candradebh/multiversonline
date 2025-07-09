@@ -1,7 +1,7 @@
 - name: Bootstrapping the cluster
   hosts: localhost
   vars:
-    path_project: "{{ path_project_master_node }}system/argocd"
+    path_project: "/tmp/multiversonline/system/argocd"
   gather_facts: false
   tasks:
     - block:
@@ -14,7 +14,7 @@
               - status.phase=Running
           register: first_install
 
-        - name: Render ArgoCD manifests from Helm chart em "{{ path_project }}"
+        - name: Render ArgoCD manifests from Helm chart
           kubernetes.core.helm_template:
             chart_ref: "{{ path_project }}"
             include_crds: true

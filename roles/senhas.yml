@@ -1,0 +1,42 @@
+- hosts: server
+  gather_facts: false
+  tasks:
+    - name: Mostrar senha do usuário admin do ArgoCD
+      ansible.builtin.shell: |
+        kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+      register: argocd_password
+      changed_when: false
+      when: inventory_hostname == groups['server'][0]
+
+    - debug:
+        msg: "Senha ArgoCD: {{ argocd_password.stdout }}"
+
+    - name: Mostrar client_secret do kanidm.dex
+      ansible.builtin.shell: |
+        kubectl get secret kanidm.dex -n global-secrets -o jsonpath='{.data.client_secret}' | base64 -d
+      register: kanidm_secret
+      changed_when: false
+      when: inventory_hostname == groups['server'][0]
+
+    - debug:
+        msg: "Client Secret DEX Kanidm: {{ kanidm_secret.stdout }}"
+
+    - name: Mostrar client_secret do dex.gitea
+      ansible.builtin.shell: |
+        kubectl get secret dex.gitea -n global-secrets -o jsonpath='{.data.client_secret}' | base64 -d
+      register: gitea_secret
+      changed_when: false
+      when: inventory_hostname == groups['server'][0]
+
+    - debug:
+        msg: "Client Secret DEX Gitea: {{ gitea_secret.stdout }}"
+
+    - name: Mostrar client_secret do dex.grafana
+      ansible.builtin.shell: |
+        kubectl get secret dex.grafana -n global-secrets -o jsonpath='{.data.client_secret}' | base64 -d
+      register: grafana_secret
+      changed_when: false
+      when: inventory_hostname == groups['server'][0]
+
+    - debug:
+        msg: "Client Secret DEX Grafana: {{ grafana_secret.stdout }}"

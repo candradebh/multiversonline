@@ -40,3 +40,22 @@
 
     - debug:
         msg: "Client Secret DEX Grafana: {{ grafana_secret.stdout }}"
+
+
+    - name: Recuperar conta admin kanindm
+      ansible.builtin.shell: |
+        kubectl exec -it -n kanidm statefulset/kanidm -- kanidmd recover-account admin
+      register: admin_recovery
+      changed_when: false
+
+    - debug:
+        msg: "Saída da recuperação da conta 'admin': {{ admin_recovery.stdout_lines }}"
+
+    - name: Recuperar conta idm_admin kanindm
+      ansible.builtin.shell: |
+        kubectl exec -it -n kanidm statefulset/kanidm -- kanidmd recover-account idm_admin
+      register: idm_admin_recovery
+      changed_when: false
+
+    - debug:
+        msg: "Saída da recuperação da conta 'idm_admin': {{ idm_admin_recovery.stdout_lines }}"

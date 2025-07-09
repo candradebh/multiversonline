@@ -452,17 +452,35 @@ sudo nano wp-config.php
 
 ````
 
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-dCN4fobdQtaAJH8U
+TASK [debug] *************************************************************************************************************************************************************************************************************************
+ok: [192.168.1.50] => {
+"msg": "Senha ArgoCD: BnnY7XcQnfqV0Qpe"
+}
+fatal: [192.168.1.51]: FAILED! => {"msg": "The task includes an option with an undefined variable.. 'dict object' has no attribute 'stdout'\n\nThe error appears to be in '/home/carlos/multiversonline/roles/senhas.yml': line 11, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n    - debug:\n      ^ here\n"}
 
-kubectl get secret kanidm.dex -n global-secrets -o jsonpath='{.data.client_secret}' | base64 -d
-z7eB9z2Kzj2An6J1BVN7hizJYLuSSeHzCA
+TASK [Mostrar client_secret do kanidm.dex] *******************************************************************************************************************************************************************************************
+ok: [192.168.1.50]
 
-kubectl get secret dex.gitea -n global-secrets -o jsonpath='{.data.client_secret}' | base64 -d
-U2ZYSNPfBxoj8zISL43aQ3oKWesf2KK4CA
+TASK [debug] *************************************************************************************************************************************************************************************************************************
+ok: [192.168.1.50] => {
+"msg": "Client Secret DEX Kanidm: "
+}
 
+TASK [Mostrar client_secret do dex.gitea] ********************************************************************************************************************************************************************************************
+ok: [192.168.1.50]
 
-kubectl get secret dex.grafana -n global-secrets -o jsonpath='{.data.client_secret}' | base64 -d
-oOq91cGD9g0kDAwOgAg3nFwuc1W5yUtHCA
+TASK [debug] *************************************************************************************************************************************************************************************************************************
+ok: [192.168.1.50] => {
+"msg": "Client Secret DEX Gitea: WQ73gYR8g2JZLRMWKg1uGVbS5TEv3KhP"
+}
+
+TASK [Mostrar client_secret do dex.grafana] ******************************************************************************************************************************************************************************************
+ok: [192.168.1.50]
+
+TASK [debug] *************************************************************************************************************************************************************************************************************************
+ok: [192.168.1.50] => {
+"msg": "Client Secret DEX Grafana: uMWR83Qw8TmJTKZQPQBzwL1WtD5xV1m9"
+}
+
 
 Desenvolvido com <3 por Carlos Andrade

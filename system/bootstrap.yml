@@ -1,7 +1,7 @@
 - name: Bootstrapping the cluster
   hosts: localhost
   vars:
-    path_project_master_node: "{{ path_project_master_node }}"
+    path_project: "{{ path_project_master_node }}system/argocd"
   gather_facts: false
   tasks:
     - block:
@@ -14,15 +14,15 @@
               - status.phase=Running
           register: first_install
 
-        - name: Render ArgoCD manifests from Helm chart
+        - name: Render ArgoCD manifests from Helm chart em "{{ path_project }}"
           kubernetes.core.helm_template:
-            chart_ref: "{{ path_project_master_node }}system/argocd"
+            chart_ref: "{{ path_project }}"
             include_crds: true
             release_name: argocd
             release_namespace: argocd
             dependency_update: true
             values_files:
-              - "{{ path_project_master_node }}system/argocd/{{ (first_install.resources | length == 0) | ternary('values-seed.yaml', 'values.yaml') }}"
+              - "{{ path_project }}/{{ (first_install.resources | length == 0) | ternary('values-seed.yaml', 'values.yaml') }}"
           register: argocd_manifests
 
         - name: Apply ArgoCD manifests

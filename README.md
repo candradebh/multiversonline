@@ -512,7 +512,15 @@ kubectl create secret generic kanidm.dex \
 --from-literal=client_secret=meu-client-secret \
 -n global-secrets --dry-run=client -o yaml | kubectl apply -f -
 
+# Use o GitHub e o Gitea
+Mesmo que hospedemos o Gitea por conta própria, você ainda pode usar o GitHub como backup e para descoberta.
 
+Adicione ambas as URLs de push (substitua meus repositórios pelos seus):
+
+git remote set-url --add --push origin git@git.multiversonline.com.br:ops/multiversonline.git
+git remote set-url --add --push origin git@github.com:candradebh/multiversonline.git
+
+Agora você pode executar git pushcomo de costume e ele será enviado para o GitHub e o Gitea.
 
 
 Desenvolvido com <3 por Carlos Andrade

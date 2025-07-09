@@ -1,0 +1,15 @@
+- hosts: server
+  tasks:
+    - name: Executar make external no master1
+      when: inventory_hostname == groups['server'][0]
+      ansible.builtin.shell: |
+        make external
+      args:
+        chdir: "{{ path_project_master_node }}"
+
+    - name: Executar make system no master1
+      when: inventory_hostname == groups['server'][0]
+      ansible.builtin.shell: |
+        make system
+      args:
+        chdir: "{{ path_project_master_node }}"

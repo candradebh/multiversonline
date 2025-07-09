@@ -7,7 +7,7 @@
         - name: Sincronizar projeto do host local para o nó master
           ansible.posix.synchronize:
             src: "../../"
-            dest: "/tmp/multiversonline/"
+            dest: "{{ path_project_master_node }}"
             recursive: yes
             delete: no
             rsync_opts:
@@ -20,7 +20,7 @@
           delegate_to: localhost
           run_once: true
 
-        - name: Executar make post-install na pasta /tmp/multiversonline/
+        - name: Executar make post-install na pasta "{{ path_project_master_node }}"
           shell: |
             cd /tmp/multiversonline
             make post-install

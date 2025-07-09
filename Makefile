@@ -12,7 +12,7 @@ PLAYBOOK_K3S_POST_INSTALL = ./roles/post-install.yml
 KUBECONFIG = ~/.kube/config
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: k3s-ansible namespaces python-install helm cilium
+default: k3s-ansible namespaces copy-project python-install helm cilium make-master
 
 # para ajustar external (tem que rodar dentro do cluster)  system  post-install (nunca funcionou)
 k3s-ansible:
@@ -25,6 +25,9 @@ python-install:
 namespaces:
 	ansible-playbook ./roles/namespaces.yml -i inventory.yml
 
+copy-project:
+	ansible-playbook ./roles/copy-project.yml -i inventory.yml
+
 metal-lb:
 	ansible-playbook ./roles/metal-lb.yml -i inventory.yml
 
@@ -33,6 +36,9 @@ helm:
 
 cilium:
 	ansible-playbook ./roles/cilium.yml -i inventory.yml
+
+make-master:
+	ansible-playbook ./roles/make-master.yml -i inventory.yml
 
 portainer:
 	ansible-playbook ./roles/portainer.yml -i inventory.yml

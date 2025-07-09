@@ -1,11 +1,8 @@
 - name: Bootstrapping the cluster
-  hosts: server
+  hosts: localhost
   gather_facts: false
   tasks:
     - block:
-
-
-
         - name: Verificar se é a primeira instalação
           kubernetes.core.k8s_info:
             kind: Pod
@@ -17,13 +14,13 @@
 
         - name: Render ArgoCD manifests from Helm chart
           kubernetes.core.helm_template:
-            chart_ref: /tmp/multiversonline/system/argocd
+            chart_ref: "{{ path_project_master_node }}system/argocd"
             include_crds: true
             release_name: argocd
             release_namespace: argocd
             dependency_update: true
             values_files:
-              - "/tmp/multiversonline/system/argocd/{{ (first_install.resources | length == 0) | ternary('values-seed.yaml', 'values.yaml') }}"
+              - "{{ path_project_master_node }}system/argocd/{{ (first_install.resources | length == 0) | ternary('values-seed.yaml', 'values.yaml') }}"
           register: argocd_manifests
 
         - name: Apply ArgoCD manifests
@@ -36,4 +33,4 @@
         - debug:
             msg: "Total de recursos renderizados: {{ argocd_manifests.stdout | from_yaml_all | length }}"
 
-      when: inventory_hostname == groups[server_group][0]
+

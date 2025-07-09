@@ -1,5 +1,15 @@
 - hosts: server
   tasks:
+
+    - name: Criar diretório se não existir
+      ansible.builtin.file:
+        path: "{{ path_project_master_node }}"
+        state: directory
+        mode: '0755'
+        owner: "{{ ansible_user | default('root') }}"
+        group: "{{ ansible_user | default('root') }}"
+
+
     - name: Sincronizar projeto do host local para o nó master
       ansible.posix.synchronize:
         src: "../../"

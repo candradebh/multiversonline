@@ -62,15 +62,7 @@ kubectl get pods -A
 
 ## APOS INSTALACAO
 
-Em kubmaster1
 
-
-kubectl exec -it -n kanidm statefulset/kanidm -- kanidmd recover-account admin
-Z1QMrLQAAN012c73xSkB4a03CAeE188Wwu5BkgVhPbqTRSZ9B8
-
-kubectl exec -it -n kanidm statefulset/kanidm -- kanidmd recover-account idm_admin
-
-ucbN0VV3MYQhLpA8WcBRjZZxxQvq9dhSLdS0RCr1wMJAahzF
 
 
 
@@ -452,9 +444,21 @@ sudo nano wp-config.php
 
 ````
 
+``` 
+carlos@deployer:~/multiversonline$ make senhas
+ansible-playbook ./roles/senhas.yml -i inventory.yml
+
+PLAY [server] ************************************************************************************************************************************************************************************************************************
+
+TASK [Mostrar senha do usuário admin do ArgoCD] **************************************************************************************************************************************************************************************
+skipping: [192.168.1.51]
+[WARNING]: Platform linux on host 192.168.1.50 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information.
+ok: [192.168.1.50]
+
 TASK [debug] *************************************************************************************************************************************************************************************************************************
 ok: [192.168.1.50] => {
-"msg": "Senha ArgoCD: BnnY7XcQnfqV0Qpe"
+    "msg": "Senha ArgoCD: BnnY7XcQnfqV0Qpe"
 }
 fatal: [192.168.1.51]: FAILED! => {"msg": "The task includes an option with an undefined variable.. 'dict object' has no attribute 'stdout'\n\nThe error appears to be in '/home/carlos/multiversonline/roles/senhas.yml': line 11, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n    - debug:\n      ^ here\n"}
 
@@ -463,7 +467,7 @@ ok: [192.168.1.50]
 
 TASK [debug] *************************************************************************************************************************************************************************************************************************
 ok: [192.168.1.50] => {
-"msg": "Client Secret DEX Kanidm: "
+    "msg": "Client Secret DEX Kanidm: "
 }
 
 TASK [Mostrar client_secret do dex.gitea] ********************************************************************************************************************************************************************************************
@@ -471,7 +475,7 @@ ok: [192.168.1.50]
 
 TASK [debug] *************************************************************************************************************************************************************************************************************************
 ok: [192.168.1.50] => {
-"msg": "Client Secret DEX Gitea: WQ73gYR8g2JZLRMWKg1uGVbS5TEv3KhP"
+    "msg": "Client Secret DEX Gitea: WQ73gYR8g2JZLRMWKg1uGVbS5TEv3KhP"
 }
 
 TASK [Mostrar client_secret do dex.grafana] ******************************************************************************************************************************************************************************************
@@ -479,8 +483,27 @@ ok: [192.168.1.50]
 
 TASK [debug] *************************************************************************************************************************************************************************************************************************
 ok: [192.168.1.50] => {
-"msg": "Client Secret DEX Grafana: uMWR83Qw8TmJTKZQPQBzwL1WtD5xV1m9"
+    "msg": "Client Secret DEX Grafana: uMWR83Qw8TmJTKZQPQBzwL1WtD5xV1m9"
 }
+
+TASK [Recuperar conta admin kanindm] *************************************************************************************************************************************************************************************************
+ok: [192.168.1.50]
+
+TASK [debug] *************************************************************************************************************************************************************************************************************************
+ok: [192.168.1.50] => {
+    "msg": "Saída da recuperação da conta 'admin': ['00000000-0000-0000-0000-000000000000 WARN     🚧 [warn]: This is running as uid == 0 (root) which may be a security risk.', \"00000000-0000-0000-0000-000000000000 WARN     🚧 [warn]: WARNING: DB folder /data has 'everyone' permission bits in the mode. This could be a security risk ...\", '00000000-0000-0000-0000-000000000000 INFO     ｉ [info]: Running account recovery ...', '00000000-0000-0000-0000-00000000000 INFO     ｉ [info]:  | new_password: \"tSLsG11Ye0Pq5g8LxE8edudaTfM6GfUHf3MYpUAFjpeDuvFD\"']"
+}
+
+TASK [Recuperar conta idm_admin kanindm] *********************************************************************************************************************************************************************************************
+ok: [192.168.1.50]
+
+TASK [debug] *************************************************************************************************************************************************************************************************************************
+ok: [192.168.1.50] => {
+    "msg": "Saída da recuperação da conta 'idm_admin': ['00000000-0000-0000-0000-000000000000 WARN     🚧 [warn]: This is running as uid == 0 (root) which may be a security risk.', \"00000000-0000-0000-0000-000000000000 WARN     🚧 [warn]: WARNING: DB folder /data has 'everyone' permission bits in the mode. This could be a security risk ...\", '00000000-0000-0000-0000-000000000000 INFO     ｉ [info]: Running account recovery ...', '00000000-0000-0000-0000-00000000000 INFO     ｉ [info]:  | new_password: \"ZkFLCU6MUsCSxpVerphAEJcD0N7CeDysuxU6U7EDUpg2v1Rv\"']"
+}
+
+PLAY RECAP *****************************************************
+```
 
 
 Desenvolvido com <3 por Carlos Andrade

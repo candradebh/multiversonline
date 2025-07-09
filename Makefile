@@ -16,7 +16,7 @@ default: k3s-ansible namespaces copy-project python-install helm cilium make-mas
 
 cluster: k3s-ansible namespaces copy-project python-install helm cilium make-master
 
-apps: namespaces copy-project cilium make-master senhas
+apps: namespaces copy-project cilium make-master passwords
 
 
 # para ajustar external (tem que rodar dentro do cluster)  system  post-install (nunca funcionou)
@@ -45,8 +45,8 @@ cilium:
 make-master:
 	ansible-playbook ./roles/make-master.yml -i inventory.yml
 
-senhas:
-	ansible-playbook ./roles/senhas.yml -i inventory.yml
+passwords:
+	ansible-playbook ./roles/senhas.yml -i inventory.yml > logs/senhas.log 2>&1
 
 portainer:
 	ansible-playbook ./roles/portainer.yml -i inventory.yml

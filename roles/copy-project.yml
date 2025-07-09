@@ -15,8 +15,10 @@
           - "--exclude=ProxmoxVE/"
       delegate_to: localhost
       run_once: true
+      when: inventory_hostname == groups['server'][0]
 
     - name: Corrige permissões
       ansible.builtin.command: chown -R root:root "{{ path_project_master_node }}"
       become: true
+      when: inventory_hostname == groups['server'][0]
 

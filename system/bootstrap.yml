@@ -1,5 +1,7 @@
 - name: Bootstrapping the cluster
   hosts: localhost
+  vars:
+    path_project_master_node: "{{ path_project_master_node }}"
   gather_facts: false
   tasks:
     - block:

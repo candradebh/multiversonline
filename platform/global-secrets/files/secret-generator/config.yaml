@@ -46,11 +46,18 @@
       length: 32
       special: false
 
-# Dex
+# Gitea Renovate
 - name: gitea.renovate
   data:
     - key: token
       length: 32
       special: false
 
+# Gitea Renovate
+- name: gitea.woodpecker
+  data:
+    - key: client_id
+      length: 32
+      special: false
 
+  gitea.woodpecker

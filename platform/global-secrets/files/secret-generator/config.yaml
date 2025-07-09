@@ -45,3 +45,12 @@
     - key: client_secret
       length: 32
       special: false
+
+# Dex
+- name: gitea.renovate
+  data:
+    - key: token
+      length: 32
+      special: false
+
+

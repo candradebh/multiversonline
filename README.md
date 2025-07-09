@@ -73,7 +73,7 @@ kubectl exec -it -n kanidm statefulset/kanidm -- kanidmd recover-account idm_adm
 ucbN0VV3MYQhLpA8WcBRjZZxxQvq9dhSLdS0RCr1wMJAahzF
 
 
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
 
 ###############################
 ADICIONAR O METAL LB NO DELOY
@@ -452,6 +452,8 @@ sudo nano wp-config.php
 
 ````
 
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+dCN4fobdQtaAJH8U
 
 kubectl get secret kanidm.dex -n global-secrets -o jsonpath='{.data.client_secret}' | base64 -d
 z7eB9z2Kzj2An6J1BVN7hizJYLuSSeHzCA

@@ -453,4 +453,14 @@ sudo nano wp-config.php
 ````
 
 
+kubectl get secret kanidm.dex -n global-secrets -o jsonpath='{.data.client_secret}' | base64 -d
+z7eB9z2Kzj2An6J1BVN7hizJYLuSSeHzCA
+
+kubectl get secret dex.gitea -n global-secrets -o jsonpath='{.data.client_secret}' | base64 -d
+U2ZYSNPfBxoj8zISL43aQ3oKWesf2KK4CA
+
+
+kubectl get secret dex.grafana -n global-secrets -o jsonpath='{.data.client_secret}' | base64 -d
+oOq91cGD9g0kDAwOgAg3nFwuc1W5yUtHCA
+
 Desenvolvido com <3 por Carlos Andrade

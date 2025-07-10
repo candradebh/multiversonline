@@ -56,14 +56,14 @@ app-template:
             - *uiHost
           secretName: ollama-tls-certificate
   persistence:
-    ollama-data:
+    ollama:
       accessMode: ReadWriteOnce
       size: 20Gi
       advancedMounts:
         main:
           main:
             - path: /root/.ollama
-    webui-data:
+    webui:
       accessMode: ReadWriteOnce
       size: 20Gi
       advancedMounts:

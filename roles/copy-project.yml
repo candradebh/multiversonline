@@ -5,7 +5,7 @@
       ansible.builtin.file:
         path: "{{ path_project_master_node }}"
         state: directory
-        mode: '0755'
+        mode: '0777'
         owner: "{{ ansible_user | default('root') }}"
         group: "{{ ansible_user | default('root') }}"
 
@@ -30,5 +30,7 @@
     - name: Corrige permissões
       ansible.builtin.command: chown -R root:root "{{ path_project_master_node }}"
       become: true
+
+
 
 

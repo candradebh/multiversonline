@@ -1,11 +1,11 @@
 - hosts: server
   tasks:
-    - name: Garantir que esses namespaces existam
+    - name: Apagar os namespaces do cluster
       kubernetes.core.k8s:
         api_version: v1
         kind: Namespace
         name: "{{ item }}"
-        state: present
+        state: absent
       loop:
         - argocd
         - cert-manager

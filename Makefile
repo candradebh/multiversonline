@@ -22,6 +22,9 @@ python-install:
 namespaces:
 	ansible-playbook ./roles/namespaces.yml -i inventory.yml
 
+namespaces_delete:
+	ansible-playbook ./roles/namespaces_delete.yml -i inventory.yml
+
 copy-project:
 	ansible-playbook ./roles/copy-project.yml -i inventory.yml
 

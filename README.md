@@ -57,11 +57,17 @@ vKRkgP3PozkwuZtJ
 
 # Verifica pods rodando
 kubectl get pods -A
+
+
 ```
 
 
-## APOS INSTALACAO
+## ERROS
 
+
+### ROOK-CEPH
+
+sudo kubectl -n rook-ceph apply -f /tmp/multiversonline/system/rook-ceph/values.yaml
 
 
 
@@ -238,35 +244,6 @@ helm version
 
 problemas com desintalacao
 
-````
-kubectl get namespace cilium-secrets -o json > cilium-secrets.json
-nano cilium-secrets.json
-kubectl replace --raw "/api/v1/namespaces/cilium-secrets/finalize" -f ./cilium-secrets.json
-````
-
-
-
-
-```
-
-helm repo add cilium https://helm.cilium.io
-helm repo update
-
-API_SERVER_IP=127.0.0.1
-# Kubeadm default is 6443
-API_SERVER_PORT=6443
-helm install cilium cilium/cilium --version 1.17.3 \
-    --namespace kube-system \
-    --set kubeProxyReplacement=true \
-    --set k8sServiceHost=${API_SERVER_IP} \
-    --set k8sServicePort=${API_SERVER_PORT}
-
-cilium version
-
-SE ERRO DE PORTA
-kubectl -n kube-system scale deployment cilium-operator --replicas=1
-
-```
 
 ### Desinstalar k3s 
 sudo /usr/local/bin/k3s-uninstall.sh
@@ -329,7 +306,7 @@ curl -X GET "https://api.cloudflare.com/client/v4/user/tokens/verify" \
 ```
 
 ## TUNEL
-cloudflared.exe service install eyJhIjoiNDc1MzdmZjRjYWY1ZWM2MDVkMGNmYjM1YTBhMGY2ZWQiLCJ0IjoiMzJiZWNlZGItMWNiZC00Y2RlLWI2YzctOWUxNjYzZWU0ODQ1IiwicyI6Ik5XSmpZbUl4TURBdE1USm1PUzAwTURSaUxUaGtaVFV0WlRka01EazFNREV5WkRjNCJ9CA
+cloudflared.exe service install eyJhIjoiNDc1MzdmZjRjYWY1ZWM2MDVsMGY2ZWQiLCJ0IjoiMzJiZWNlZGItMWNiZC00Y2RlLWI2YzctOWUxNjYzZWU0ODQ1IiwicyI6Ik5XSmpZbUl4TURBdE1USm1PUzAwTURSaUxUaGtaVFV0WlRka01EazFNREV5WkRjNCJ9CA
 
 
 ## TEM QUE INSTALAR 
@@ -387,7 +364,7 @@ gotestsum --format testname -- -timeout 5m -run "ArgoCDCheck"
 
 
 
-## MIGRACAO GODADY
+## CONFIG SITES PROVISORIO
 
 Apontar para cloudflare em registro.br
 ```
@@ -410,6 +387,12 @@ sudo nano /etc/apache2/sites-available/embalardesc.com.br.conf
     ErrorLog ${APACHE_LOG_DIR}/embalardesc_error.log
     CustomLog ${APACHE_LOG_DIR}/embalardesc_access.log combined
 </VirtualHost>
+
+
+sudo nano /etc/apache2/
+
+Listen: 9004
+
 ```
 
 sudo a2ensite embalardesc.com.br.conf
@@ -445,62 +428,6 @@ sudo nano wp-config.php
 ````
 
 ``` 
-carlos@deployer:~/multiversonline$ make senhas
-ansible-playbook ./roles/senhas.yml -i inventory.yml
-
-PLAY [server] ************************************************************************************************************************************************************************************************************************
-
-TASK [Mostrar senha do usuário admin do ArgoCD] **************************************************************************************************************************************************************************************
-skipping: [192.168.1.51]
-[WARNING]: Platform linux on host 192.168.1.50 is using the discovered Python interpreter at /usr/bin/python3.10, but future installation of another Python interpreter could change the meaning of that path. See
-https://docs.ansible.com/ansible-core/2.17/reference_appendices/interpreter_discovery.html for more information.
-ok: [192.168.1.50]
-
-TASK [debug] *************************************************************************************************************************************************************************************************************************
-ok: [192.168.1.50] => {
-    "msg": "Senha ArgoCD: BnnY7XcQnfqV0Qpe"
-}
-fatal: [192.168.1.51]: FAILED! => {"msg": "The task includes an option with an undefined variable.. 'dict object' has no attribute 'stdout'\n\nThe error appears to be in '/home/carlos/multiversonline/roles/senhas.yml': line 11, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n    - debug:\n      ^ here\n"}
-
-TASK [Mostrar client_secret do kanidm.dex] *******************************************************************************************************************************************************************************************
-ok: [192.168.1.50]
-
-TASK [debug] *************************************************************************************************************************************************************************************************************************
-ok: [192.168.1.50] => {
-    "msg": "Client Secret DEX Kanidm: "
-}
-
-TASK [Mostrar client_secret do dex.gitea] ********************************************************************************************************************************************************************************************
-ok: [192.168.1.50]
-
-TASK [debug] *************************************************************************************************************************************************************************************************************************
-ok: [192.168.1.50] => {
-    "msg": "Client Secret DEX Gitea: WQ73gYR8g2JZLRMWKg1uGVbS5TEv3KhP"
-}
-
-TASK [Mostrar client_secret do dex.grafana] ******************************************************************************************************************************************************************************************
-ok: [192.168.1.50]
-
-TASK [debug] *************************************************************************************************************************************************************************************************************************
-ok: [192.168.1.50] => {
-    "msg": "Client Secret DEX Grafana: uMWR83Qw8TmJTKZQPQBzwL1WtD5xV1m9"
-}
-
-TASK [Recuperar conta admin kanindm] *************************************************************************************************************************************************************************************************
-ok: [192.168.1.50]
-
-TASK [debug] *************************************************************************************************************************************************************************************************************************
-ok: [192.168.1.50] => {
-    "msg": "Saída da recuperação da conta 'admin': ['00000000-0000-0000-0000-000000000000 WARN     🚧 [warn]: This is running as uid == 0 (root) which may be a security risk.', \"00000000-0000-0000-0000-000000000000 WARN     🚧 [warn]: WARNING: DB folder /data has 'everyone' permission bits in the mode. This could be a security risk ...\", '00000000-0000-0000-0000-000000000000 INFO     ｉ [info]: Running account recovery ...', '00000000-0000-0000-0000-00000000000 INFO     ｉ [info]:  | new_password: \"tSLsG11Ye0Pq5g8LxE8edudaTfM6GfUHf3MYpUAFjpeDuvFD\"']"
-}
-
-TASK [Recuperar conta idm_admin kanindm] *********************************************************************************************************************************************************************************************
-ok: [192.168.1.50]
-
-TASK [debug] *************************************************************************************************************************************************************************************************************************
-ok: [192.168.1.50] => {
-    "msg": "Saída da recuperação da conta 'idm_admin': ['00000000-0000-0000-0000-000000000000 WARN     🚧 [warn]: This is running as uid == 0 (root) which may be a security risk.', \"00000000-0000-0000-0000-000000000000 WARN     🚧 [warn]: WARNING: DB folder /data has 'everyone' permission bits in the mode. This could be a security risk ...\", '00000000-0000-0000-0000-000000000000 INFO     ｉ [info]: Running account recovery ...', '00000000-0000-0000-0000-00000000000 INFO     ｉ [info]:  | new_password: \"ZkFLCU6MUsCSxpVerphAEJcD0N7CeDysuxU6U7EDUpg2v1Rv\"']"
-}
 
 PLAY RECAP *****************************************************
 ```

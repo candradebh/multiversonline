@@ -526,5 +526,5 @@ git remote set-url --add --push origin https://github.com/candradebh/multiverson
 
 Agora você pode executar git pushcomo de costume e ele será enviado para o GitHub e o Gitea.
 
-
+---
 Desenvolvido com <3 por Carlos Andrade

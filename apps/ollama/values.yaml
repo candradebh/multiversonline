@@ -5,7 +5,7 @@ app-template:
         main:
           image:
             repository: docker.io/ollama/ollama
-            tag: 0.9.6
+            tag: 0.1.29
     ui:
       containers:
         main:
@@ -22,7 +22,7 @@ app-template:
           protocol: HTTP
       models:
         - llava
-        - gemma3
+        - deepseek-r1:8b
     ui:
       controller: ui
       ports:
@@ -56,17 +56,13 @@ app-template:
             - *uiHost
           secretName: ollama-tls-certificate
   persistence:
-    ollama-data:
+    data:
       accessMode: ReadWriteOnce
       size: 40Gi
       advancedMounts:
         main:
           main:
             - path: /root/.ollama
-    webui-data:
-      accessMode: ReadWriteOnce
-      size: 10Gi
-      advancedMounts:
         ui:
           main:
             - path: /app/backend/data

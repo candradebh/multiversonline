@@ -15,8 +15,6 @@ apps: namespaces copy-project cilium make-master
 # para ajustar external (tem que rodar dentro do cluster)  system  post-install (nunca funcionou)
 k3s-ansible:
 	make -C k3s-ansible
-	cd k3s-ansible && \
-    	ansible-playbook playbooks/site.yml -i ../inventory.yml
 
 python-install:
 	ansible-playbook ./roles/python-install.yml -i inventory.yml

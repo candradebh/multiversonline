@@ -520,6 +520,10 @@ Adicione ambas as URLs de push (substitua meus repositórios pelos seus):
 git remote set-url --add --push origin git@git.multiversonline.com.br:ops/multiversonline.git
 git remote set-url --add --push origin git@github.com:candradebh/multiversonline.git
 
+
+git remote set-url --add --push origin https://github.com/candradebh/multiversonline.git
+
+
 Agora você pode executar git pushcomo de costume e ele será enviado para o GitHub e o Gitea.
 
 

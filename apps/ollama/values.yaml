@@ -22,7 +22,7 @@ app-template:
           protocol: HTTP
       models:
         - llava
-        - deepseek-r1:8b
+        - gemma3
     ui:
       controller: ui
       ports:
@@ -56,13 +56,17 @@ app-template:
             - *uiHost
           secretName: ollama-tls-certificate
   persistence:
-    data:
+    ollama-data:
       accessMode: ReadWriteOnce
       size: 40Gi
       advancedMounts:
         main:
           main:
             - path: /root/.ollama
+    webui-data:
+      accessMode: ReadWriteOnce
+      size: 10Gi
+      advancedMounts:
         ui:
           main:
             - path: /app/backend/data

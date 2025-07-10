@@ -20,6 +20,9 @@ app-template:
         http:
           port: 11434
           protocol: HTTP
+      models:
+        - llava
+        - deepseek-r1:8b
     ui:
       controller: ui
       ports:

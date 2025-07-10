@@ -37,7 +37,7 @@ rook-ceph-cluster:
           memory: 2Gi
     storage:
       useAllNodes: true
-      useAllDevices: false
+      useAllDevices: true
       devices:
         - name: sdb
       config:

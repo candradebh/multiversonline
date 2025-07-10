@@ -67,6 +67,6 @@ app-template:
       accessMode: ReadWriteOnce
       size: 10Gi
       advancedMounts:
-        main:
+        ui:
           main:
             - path: /app/backend/data

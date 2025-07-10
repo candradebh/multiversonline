@@ -16,7 +16,14 @@
         - monitoring-system
         - metallb-system
         - gitea
-        - matrix
         - kanidm
+        - matrix
+        - paperless
+        - rook-ceph
+        - speedtest
+        - tailscale
+        - volsync-system
+        - wireguard
         - woodpecker
+        - zot
       when: inventory_hostname == groups['server'][0]

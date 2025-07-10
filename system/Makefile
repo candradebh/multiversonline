@@ -5,4 +5,4 @@
 .PHONY: bootstrap
 bootstrap:
 	ansible-playbook bootstrap.yml \
-	-i ../inventory.yml -vvv
+	-i ../inventory.yml

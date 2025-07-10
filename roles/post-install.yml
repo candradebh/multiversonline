@@ -1,28 +1,128 @@
-- name: Post Install
-  hosts: server
+---
+- name: Automatizar Gitea e Kanidm com Ansible
+  hosts: localhost
   gather_facts: false
+  vars:
+    gitea_token_name: renovate
+    gitea_token_scopes:
+      - write:repository
+      - read:user
+      - write:issue
+      - read:organization
+      - read:misc
+    gitea_oauth_apps:
+      - name: woodpecker
+        ingress_name: woodpecker-server
+        namespace: woodpecker
+    kanidm_oauth_apps:
+      - name: dex
+        ingress_name: dex
+        namespace: dex
+    kanidm_groups:
+      - editor
+    kanidm_users:
+      - admin
+      - idm_admin
   tasks:
-    - block:
+    - name: Carregar ingressos
+      community.kubernetes.k8s_info:
+        kind: Ingress
+        namespace: "{{ item.namespace }}"
+        name: "{{ item.ingress_name }}"
+      loop: "{{ gitea_oauth_apps + kanidm_oauth_apps }}"
+      register: ingress_info
 
-        - name: Sincronizar projeto do host local para o nó master
-          ansible.posix.synchronize:
-            src: "../../"
-            dest: "{{ path_project_master_node }}"
-            recursive: yes
-            delete: no
-            rsync_opts:
-              - "--exclude=.git"
-              - "--exclude=.idea/"
-              - "--exclude=.DS_Store"
-              - "--exclude=__pycache__"
-              - "--exclude=k3s-ansible/"
-              - "--exclude=ProxmoxVE/"
-          delegate_to: localhost
-          run_once: true
+    - name: Obter hostnames
+      set_fact:
+        ingress_hosts: >-
+          {{ dict(ingress_info.results | map(attribute='item.name') | zip(ingress_info.results | map(attribute='resources') | map('first') | map(attribute='spec') | map(attribute='rules') | map('first') | map(attribute='host'))) }}
 
-        - name: Executar make post-install na pasta "{{ path_project_master_node }}"
-          shell: |
-            cd /tmp/multiversonline
-            make post-install
+    - name: Obter Ingress Gitea
+      community.kubernetes.k8s_info:
+        kind: Ingress
+        namespace: gitea
+        name: gitea
+      register: gitea_ingress
 
-      when: inventory_hostname == groups[server_group][0]
+    - name: Definir variável gitea_host
+      set_fact:
+        gitea_host: "{{ gitea_ingress.resources[0].spec.rules[0].host }}"
+
+    - name: Obter Secret do Gitea
+      community.kubernetes.k8s_info:
+        kind: Secret
+        namespace: gitea
+        name: gitea-admin-secret
+      register: gitea_secret
+
+    - name: Decodificar usuário e senha do Gitea
+      set_fact:
+        gitea_user: "{{ gitea_secret.resources[0].data.username | b64decode }}"
+        gitea_pass: "{{ gitea_secret.resources[0].data.password | b64decode }}"
+
+    - name: Verificar se token já existe
+      uri:
+        url: "http://{{ gitea_host }}/api/v1/users/{{ gitea_user }}/tokens"
+        method: GET
+        user: "{{ gitea_user }}"
+        password: "{{ gitea_pass }}"
+        force_basic_auth: yes
+        return_content: yes
+      register: gitea_tokens_response
+
+    - name: Criar token no Gitea (se necessário)
+      uri:
+        url: "http://{{ gitea_host }}/api/v1/users/{{ gitea_user }}/tokens"
+        method: POST
+        user: "{{ gitea_user }}"
+        password: "{{ gitea_pass }}"
+        force_basic_auth: yes
+        headers:
+          Content-Type: "application/json"
+        body_format: json
+        body:
+          name: "{{ gitea_token_name }}"
+          scopes: "{{ gitea_token_scopes }}"
+      when: gitea_tokens_response.json | selectattr('name', 'equalto', gitea_token_name) | list | length == 0
+      register: new_token
+
+    - name: Criar secret do token Gitea
+      community.kubernetes.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: "gitea.{{ gitea_token_name }}"
+            namespace: global-secrets
+          type: Opaque
+          data:
+            token: "{{ (new_token.json.sha1 if new_token is defined else gitea_tokens_response.json | selectattr('name', 'equalto', gitea_token_name) | first | attr('sha1')) | b64encode }}"
+
+    - name: Criar OAuth Apps no Gitea (placeholder)
+      debug:
+        msg: "Implemente a chamada ao endpoint /api/v1/user/applications/oauth2 aqui."
+
+    - name: Executar auth add-oauth no pod Gitea (placeholder)
+      debug:
+        msg: "Use k8s_exec para rodar o comando 'gitea admin auth add-oauth'"
+
+    - name: Resetar senha de contas Kanidm
+      shell: |
+        kubectl exec -n kanidm kanidm-0 -- kanidmd recover-account --output json {{ item }} | tail -n1 | jq -r '.password'
+      loop: "{{ kanidm_users }}"
+      register: kanidm_passwords
+
+    - name: Fazer login via CLI no Kanidm (placeholder)
+      debug:
+        msg: "Use pexpect ou wrapper para enviar senha do Kanidm via CLI."
+
+    - name: Criar grupos Kanidm
+      shell: |
+        kanidm group create --url https://{{ ingress_hosts.dex }} --name idm_admin {{ item }}
+      loop: "{{ kanidm_groups }}"
+      ignore_errors: true
+
+    - name: Criar apps OAuth no Kanidm (placeholder)
+      debug:
+        msg: "Use shell para rodar comandos 'kanidm system oauth2 ...' e criar secrets."

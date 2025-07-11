@@ -73,7 +73,7 @@ spec:
     mgr: system-cluster-critical
   storage:
     useAllNodes: true
-    useAllDevices: false
+    useAllDevices: true
     deviceFilter: '^sd'  # Exemplo: usa apenas discos como sda, sdb, sdc (típico de SSDs SATA)
     config:
       deviceClass: ssd

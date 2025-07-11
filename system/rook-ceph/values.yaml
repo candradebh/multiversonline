@@ -14,21 +14,115 @@ rook-ceph-cluster:
     dashboard:
       ssl: false
     logCollector:
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  cephVersion:
+    image: quay.io/ceph/ceph:v19.2.2
+    allowUnsupported: false
+  dataDirHostPath: /var/lib/rook
+  skipUpgradeChecks: false
+  continueUpgradeAfterChecksEvenIfNotHealthy: false
+  waitTimeoutForHealthyOSDInMinutes: 10
+  upgradeOSDRequiresHealthyPGs: false
+  mon:
+    count: 3
+    allowMultiplePerNode: false
+  mgr:
+    count: 2
+    allowMultiplePerNode: false
+    modules:
+      - name: rook
+        enabled: true
+  dashboard:
+    enabled: true
+    ssl: true
+  monitoring:
+    enabled: true
+    metricsDisabled: false
+    exporter:
+      perfCountersPrioLimit: 5
+      statsPeriodSeconds: 5
+  network:
+    connections:
+      encryption:
+        enabled: false
+      compression:
+        enabled: false
+      requireMsgr2: false
+  crashCollector:
+    disable: false
+  logCollector:
+    enabled: true
+    periodicity: daily
+    maxLogSize: 500M
+  cleanupPolicy:
+    confirmation: ""
+    sanitizeDisks:
+      method: quick
+      dataSource: zero
+      iteration: 1
+    allowUninstallWithVolumes: false
+  removeOSDsIfOutAndSafeToRemove: false
+  priorityClassNames:
+    mon: system-node-critical
+    osd: system-node-critical
+    mgr: system-cluster-critical
+  storage:
+    useAllNodes: true
+    useAllDevices: false
+    deviceFilter: '^sd'  # Exemplo: usa apenas discos como sda, sdb, sdc (típico de SSDs SATA)
+    config:
+      deviceClass: ssd
+    allowDeviceClassUpdate: false
+    allowOsdCrushWeightUpdate: false
+    scheduleAlways: false
+    onlyApplyOSDPlacement: false
+  disruptionManagement:
+    managePodBudgets: true
+    osdMaintenanceTimeout: 30
+  csi:
+    readAffinity:
       enabled: false
     removeOSDsIfOutAndSafeToRemove: true
     resources:
+    cephfs: {}
+  healthCheck:
+    daemonHealth:
+      mon:
+        disabled: false
+        interval: 45s
+      osd:
+        disabled: false
+        interval: 60s
+      status:
+        disabled: false
+        interval: 60s
+    livenessProbe:
+      mon:
+        disabled: false
       mgr:
         limits:
           memory: 2Gi
         requests:
           cpu: 200m
           memory: 1Gi
+        disabled: false
+      osd:
+        disabled: false
+    startupProbe:
       mon:
         limits:
           memory: 3Gi
         requests:
           cpu: 200m
           memory: 1Gi
+        disabled: false
+      mgr:
+        disabled: false
       osd:
         limits:
           memory: 6Gi
@@ -37,7 +131,7 @@ rook-ceph-cluster:
           memory: 2Gi
     storage:
       useAllNodes: true
-      useAllDevices: true
+      useAllDevices: false
       devices:
         - name: sdb
       config:
@@ -105,3 +199,5 @@ rook-ceph-cluster:
     isDefault: false
 
   cephObjectStores: []
+
+

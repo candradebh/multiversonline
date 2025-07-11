@@ -6,6 +6,7 @@
     chart_version: "{{ cilium_version }}"
     release_namespace: "{{ cilium_namespace }}"
     values: "{{ cilium_values }}"
+    when: inventory_hostname == groups['server'][0]
 
 - name: Wait for Cilium CRDs
   kubernetes.core.k8s_info:
@@ -17,7 +18,8 @@
   register: crd
   until: crd.resources | length > 0
   retries: 5
-  delay: 10
+  delay: 15
+  when: inventory_hostname == groups['server'][0]
 
 - name: Apply Cilium resources
   kubernetes.core.k8s:
@@ -25,3 +27,4 @@
   loop:
     - ciliuml2announcementpolicy.yaml
     - ciliumloadbalancerippool.yaml
+  when: inventory_hostname == groups['server'][0]

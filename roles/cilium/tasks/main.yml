@@ -1,4 +1,5 @@
 - name: Install Cilium
+  ignore_errors: true
   kubernetes.core.helm:
     name: cilium
     chart_ref: cilium

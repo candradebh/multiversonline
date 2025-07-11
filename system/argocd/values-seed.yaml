@@ -19,7 +19,7 @@ argocd-apps:
       generators:
         - git:
             repoURL: &repoURL https://github.com/candradebh/multiversonline
-            revision: &revision sem-rook-ceph
+            revision: &revision main
             directories:
               - path: system/*
               - path: platform/*

@@ -69,6 +69,10 @@ kubectl get pods -A
 
 sudo kubectl -n rook-ceph apply -f /tmp/multiversonline/system/rook-ceph/values.yaml
 
+kubectl delete pod -n rook-ceph -l app=rook-ceph-operator
+
+
+
 ### PRE-REQUISITOS
 --LIMPANDO DISCOS 
 sudo wipefs -a /dev/sdb

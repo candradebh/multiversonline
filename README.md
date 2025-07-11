@@ -62,18 +62,28 @@ kubectl get pods -A
 ```
 
 
-## ERROS
+# ERROS
 
 
-### ROOK-CEPH
+## ROOK-CEPH
 
 sudo kubectl -n rook-ceph apply -f /tmp/multiversonline/system/rook-ceph/values.yaml
 
+### PRE-REQUISITOS
+--LIMPANDO DISCOS 
 sudo wipefs -a /dev/sdb
 sudo blkdiscard /dev/sdb || sudo dd if=/dev/zero of=/dev/sdb bs=1M count=100
 
 
+systemctl edit containerd --force --full
+[Service]
+LimitNOFILE=
 
+````
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl restart containerd
+````
 ###############################
 ADICIONAR O METAL LB NO DELOY
 

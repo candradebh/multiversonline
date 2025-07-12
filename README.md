@@ -58,7 +58,6 @@ vKRkgP3PozkwuZtJ
 # Verifica pods rodando
 kubectl get pods -A
 
-
 ```
 
 

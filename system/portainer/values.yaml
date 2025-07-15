@@ -46,7 +46,6 @@ app-template:
       enabled: true
       accessMode: ReadWriteOnce
       size: 5Gi
-      storageClass: rook-ceph-block
       advancedMounts:
         main:
           main:

@@ -1,6 +1,6 @@
 apiVersion: v2
 name: portainer
-description: Helm chart para Portainer via app-template
+description: Helm chart para Portainer via app-template 3.0
 type: application
 version: 0.1.0
 dependencies:

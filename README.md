@@ -59,7 +59,7 @@ vKRkgP3PozkwuZtJ
 kubectl get pods -A
 
 ```
-Subiu depois de rodar algumas vezes, excluir registros de dns, executar em navegador diferente...
+Subiu depois de rodar algumas vezes, excluir registros de dns, executar em navegador diferente......
 
 
 

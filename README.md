@@ -59,7 +59,13 @@ vKRkgP3PozkwuZtJ
 kubectl get pods -A
 
 ```
+Subiu depois de rodar algumas vezes, excluir registros de dns, executar em navegador diferente...
 
+
+
+Aicione o repo git 
+
+git remote set-url --add --push origin git@git.multiversonline.com.br:ops/multiversonline.git
 
 ## ERROS
 

@@ -82,6 +82,11 @@ kubectl exec -it -n ollama pod/ollama-5b4bcc657b-77tc8 -- bash
 
 chrome://net-internals/#hsts
 
+### DEPLOYMENTS
+
+kubectl rollout restart deployment dex -n dex
+
+
 
 ### ROOK-CEPH
 

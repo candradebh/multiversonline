@@ -41,7 +41,7 @@ make-master:
 	ansible-playbook ./roles/make-master.yml -i inventory.yml
 
 passwords:
-	ansible-playbook ./roles/passwords.yml -i inventory.yml > logs/passwords_make.log
+	ansible-playbook ./roles/passwords.yml -i inventory.yml
 
 kanidm-recovery-pass:
 	ansible-playbook ./roles/reset_kanin_pass.yml -i inventory.yml > logs/kanin_pass_make.log 2>&1

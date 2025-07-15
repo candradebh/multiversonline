@@ -69,8 +69,18 @@ git remote set-url --add --push origin git@git.multiversonline.com.br:ops/multiv
 ```
 
 
+## OLLAMA
+
+kubectl get pods -n ollama
+kubectl exec -it -n ollama pod/ollama-5b4bcc657b-77tc8 -- bash
+
+
 
 ## ERROS
+
+### Certificados 
+
+chrome://net-internals/#hsts
 
 
 ### ROOK-CEPH

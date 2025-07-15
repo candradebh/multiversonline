@@ -59,7 +59,7 @@ vKRkgP3PozkwuZtJ
 kubectl get pods -A
 
 ```
-
+git remote set-url --add --push origin git@github.com:candradebh/multiversonline.git
 
 ## ERROS
 

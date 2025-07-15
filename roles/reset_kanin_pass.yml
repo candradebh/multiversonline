@@ -3,6 +3,7 @@
   tasks:
 
     - name: Recuperar conta admin kanindm
+      when: inventory_hostname == groups['server'][0]
       ansible.builtin.shell: |
         kubectl exec -it -n kanidm statefulset/kanidm -- kanidmd recover-account admin
       register: admin_recovery
@@ -12,6 +13,7 @@
         msg: "Saída da recuperação da conta 'admin': {{ admin_recovery.stdout_lines }}"
 
     - name: Recuperar conta idm_admin
+      when: inventory_hostname == groups['server'][0]
       ansible.builtin.shell: |
         kubectl exec -it -n kanidm statefulset/kanidm -- kanidmd recover-account idm_admin
       register: idm_admin_recovery
@@ -21,6 +23,7 @@
         msg: "Saída da recuperação da conta 'idm_admin': {{ idm_admin_recovery.stdout_lines }}"
 
     - name: Gravar saída das senhas em arquivo local
+      when: inventory_hostname == groups['server'][0]
       copy:
         content: |
           Kanidm Admin: {{ admin_recovery.stdout_lines }}

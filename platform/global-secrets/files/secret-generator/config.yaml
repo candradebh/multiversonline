@@ -5,6 +5,12 @@
       length: 32
       special: true
 
+- name: gitea.renovate
+  data:
+    - key: token
+      length: 32
+      special: true
+
 # Dex
 - name: dex.grafana
   data:
@@ -45,5 +51,9 @@
     - key: client_id
       length: 32
       special: false
+
+
+
+
 
 

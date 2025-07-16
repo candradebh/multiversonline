@@ -11,10 +11,10 @@ rook-ceph-cluster:
     mgr:
       count: 2
     dashboard:
-      ssl: true
+      ssl: false
     logCollector:
       enabled: false
-    removeOSDsIfOutAndSafeToRemove: false
+    removeOSDsIfOutAndSafeToRemove: true
     resources:
       mgr:
         limits:
@@ -32,46 +32,8 @@ rook-ceph-cluster:
         limits:
           memory: "4Gi"
         requests:
-          cpu: "1"
-          memory: "1Gi"
-    storage:
-      useAllNodes: true
-      useAllDevices: false
-      deviceFilter: "^sdb$"
-      config:
-        osdsPerDevice: "1"
-        encryptedDevice: "false"
-
-    healthCheck:
-      daemonHealth:
-        mon:
-          disabled: false
-          interval: 45s
-        osd:
-          disabled: false
-          interval: 60s
-        status:
-          disabled: false
-          interval: 60s
-      # Change pod liveness probe, it works for all mon, mgr, and osd pods.
-      livenessProbe:
-        mon:
-          disabled: false
-        mgr:
-          disabled: false
-        osd:
-          disabled: false
-      ingress:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-        hosts:
-          - &host rook-ceph.multiversonline.com.br
-        tls:
-          - secretName: rook-ceph-general-tls
-            hosts:
-              - *host
+          cpu: "100m"
+          memory: "512Mi"
   cephBlockPools:
     - name: standard-rwo
       spec:

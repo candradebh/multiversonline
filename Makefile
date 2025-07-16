@@ -5,9 +5,9 @@
 KUBECONFIG = ~/.kube/config
 KUBE_CONFIG_PATH = $(KUBECONFIG)
 
-default: k3s-ansible namespaces copy-project python-install helm cilium make-master
+default: k3s-ansible wipe-disk namespaces copy-project python-install helm cilium make-master
 
-cluster: k3s-ansible namespaces copy-project python-install helm cilium make-master
+cluster: k3s-ansible wipe-disk namespaces copy-project python-install helm cilium make-master
 
 apps: namespaces copy-project cilium make-master
 
@@ -21,6 +21,9 @@ python-install:
 
 namespaces:
 	ansible-playbook ./roles/namespaces.yml -i inventory.yml
+
+wipe-disk:
+	ansible-playbook ./roles/wipe-disk.yml -i inventory.yml
 
 namespaces_delete:
 	ansible-playbook ./roles/namespaces_delete.yml -i inventory.yml

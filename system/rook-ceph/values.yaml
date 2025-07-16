@@ -34,9 +34,14 @@ rook-ceph-cluster:
         requests:
           cpu: "1"
           memory: "1Gi"
-    storage: # cluster level storage configuration and selection
+    storage:
       useAllNodes: true
-      useAllDevices: true
+      useAllDevices: false
+      deviceFilter: "^sdb$"
+      config:
+        osdsPerDevice: "1"
+        encryptedDevice: "false"
+
     healthCheck:
       daemonHealth:
         mon:

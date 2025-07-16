@@ -25,19 +25,19 @@ rook-ceph-cluster:
       nodes:
         - name: "kubmaster1"
           devices:
-            - name: "sda"
+            - name: "sdb"
               config:
                 storeType: bluestore
 
         - name: "kubmaster2"
           devices:
-            - name: "sda"
+            - name: "sdb"
               config:
                 storeType: bluestore
 
         - name: "kubmaster3"
           devices:
-            - name: "sda"
+            - name: "sdb"
               config:
                 storeType: bluestore
 

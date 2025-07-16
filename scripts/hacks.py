@@ -19,7 +19,7 @@ config.load_config()
 gitea_host = "git.multiversonline.com.br" #client.NetworkingV1Api().read_namespaced_ingress('gitea', 'gitea').spec.rules[0].host
 gitea_user_secret = "JkuS5vCP3fQi53OKsyWIy0f1lPvTfM6S" #client.CoreV1Api().read_namespaced_secret('gitea-admin-secret', 'gitea')
 gitea_user = "gitea_admin"
-gitea_pass = "7w)d_buP3"Gzz:K-+18J0hmOZF:O4hm5"
+gitea_pass = "7w)d_buP3\"Gzz:K-+18J0hmOZF:O4hm5"
 gitea_url = f"http://{gitea_host}"
 
 kanidm_host = "auth.multiversonline.com.br" #client.NetworkingV1Api().read_namespaced_ingress('kanidm', 'kanidm').spec.rules[0].host

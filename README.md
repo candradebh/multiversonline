@@ -38,24 +38,10 @@ Este repositório define a infraestrutura do projeto **Homelab Multiverso Online
 git submodule update --init --recursive
 
 # Cria e configura o cluster kubernets
-make k3s-ansible
-
-make helm
-
-make cillium
-
-make namespaces
-
-make system 
-
-# entrei na maquina e executei o tofu aply de la 
-tofu apply -auto-aprove
+make 
 
 # nunca consegui
 make post-install
-
-kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
-vKRkgP3PozkwuZtJ
 
 # Verifica pods rodando
 kubectl get pods -A
@@ -76,10 +62,11 @@ git remote set-url --add --push origin git@github.com:candradebh/multiversonline
 
 ## OLLAMA
 
+```
 kubectl get pods -n ollama
 kubectl exec -it -n ollama pod/ollama- -- bash
 ollama run gemma3n
-
+```
 
 ## ERROS
 

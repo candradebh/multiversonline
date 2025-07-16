@@ -36,3 +36,8 @@
       pip:
         name: openshift
         executable: pip3
+
+    - name: Instalar o módulo Python 'pexpect'
+      pip:
+        name: pexpect
+        executable: pip3

@@ -163,11 +163,38 @@ def kanidm_login(accounts: list[str]) -> None:
         cli_login.sendline(password)
         cli_login.read()
 
+# kanidm_login
+def kanidm_auth(username: str, password: str) -> str:
+    url = f"https://{kanidm_host}/v1/auth/simple"
+    resp = requests.post(
+        url,
+        headers={"Content-Type": "application/json"},
+        json={"name": username, "password": password},
+        verify=False
+    )
+    if resp.status_code != 200:
+        raise Exception(f"Erro ao autenticar: {resp.status_code} - {resp.text}")
+    return resp.json()['token']
+
 def setup_kanidm_group(name: str) -> None:
     subprocess.run(
         ["kanidm", "group", "create", "--url", f"https://{kanidm_host}", "--name", "idm_admin", name],
         capture_output=True,
     )
+# setup_kanidm_group
+def kanidm_create_group(name: str, token: str):
+    url = f"https://{kanidm_host}/v1/group"
+    resp = requests.post(
+        url,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {token}"
+        },
+        json={"name": name},
+        verify=False
+    )
+    if resp.status_code not in (200, 201):
+        print(f"Erro criando grupo {name}: {resp.status_code} - {resp.text}")
 
 def setup_kanidm_oauth_app(name: str, redirect_uri: str) -> None:
     try:
@@ -207,6 +234,36 @@ def setup_kanidm_oauth_app(name: str, redirect_uri: str) -> None:
             'client_secret': base64.b64encode(client_secret.encode("utf-8")).decode("utf-8"),
         }
     )
+# setup_kanidm_oauth_app
+def kanidm_create_oauth_app(name: str, redirect_uri: str, token: str):
+    url = f"https://{kanidm_host}/v1/oauth2/application"
+    payload = {
+        "name": name,
+        "display_name": name,
+        "redirect_uris": [redirect_uri],
+        "scope": ["openid", "profile", "email", "groups"]
+    }
+    resp = requests.post(
+        url,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {token}"
+        },
+        json=payload,
+        verify=False
+    )
+    if resp.status_code != 201:
+        raise Exception(f"Erro criando app OAuth: {resp.status_code} - {resp.text}")
+    secret = resp.json().get("client_secret")
+    apply_secret(
+        f"kanidm.{name}",
+        "global-secrets",
+        {
+            'client_id': base64.b64encode(name.encode("utf-8")).decode("utf-8"),
+            'client_secret': base64.b64encode(secret.encode("utf-8")).decode("utf-8"),
+        }
+    )
+
 
 def main() -> None:
     with Console().status("Completing the remaining sorcery"):
@@ -244,13 +301,13 @@ def main() -> None:
 
         setup_gitea_auth_with_dex()
 
-        kanidm_login(["admin", "idm_admin"])
+        kanidm_auth(["admin", "idm_admin"])
 
         for group in kanidm_groups:
-            setup_kanidm_group(group['name'])
+            kanidm_create_group(group['name'])
 
         for app in kanidm_oauth_apps:
-            setup_kanidm_oauth_app(app['name'], app['redirect_uri'])
+            kanidm_create_oauth_app(app['name'], app['redirect_uri'])
 
 if __name__ == '__main__':
     main()

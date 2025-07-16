@@ -3,7 +3,7 @@
   data:
     - key: password
       length: 32
-      special: true
+      special: false
 
 - name: gitea.renovate
   data:

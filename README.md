@@ -76,12 +76,10 @@ git remote set-url --add --push origin git@github.com:candradebh/multiversonline
 
 ```
 
-
 ## OLLAMA
 
 kubectl get pods -n ollama
-kubectl exec -it -n ollama pod/ollama-5b4bcc657b-77tc8 -- bash
-
+kubectl exec -it -n ollama pod/ollama- -- bash
 
 
 ## ERROS

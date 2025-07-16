@@ -32,8 +32,8 @@ rook-ceph-cluster:
         limits:
           memory: "4Gi"
         requests:
-          cpu: "100m"
-          memory: "512Mi"
+          cpu: "1"
+          memory: "1Gi"
     storage: # cluster level storage configuration and selection
       useAllNodes: true
       useAllDevices: true

@@ -88,6 +88,10 @@ sudo blkdiscard /dev/sdb || sudo dd if=/dev/zero of=/dev/sdb bs=1M count=100
 kubectl delete pod -n rook-ceph -l app=rook-ceph-operator
 
 
+kubectl -n rook-ceph logs -l app=rook-ceph-operator
+
+
+
 1- parar
 kubectl -n rook-ceph scale deployment rook-ceph-operator --replicas=0
 

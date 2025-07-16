@@ -15,10 +15,6 @@ rook-ceph-cluster:
     logCollector:
       enabled: false
     removeOSDsIfOutAndSafeToRemove: true
-    storage:
-      useAllNodes: false
-      useAllDevices: false
-
     resources:
       mgr:
         limits:

@@ -6,6 +6,7 @@
   tasks:
     - block:
         - name: Verificar se é a primeira instalação
+          ignore_errors: true
           kubernetes.core.k8s_info:
             kind: Pod
             label_selectors:

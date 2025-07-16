@@ -15,6 +15,32 @@ rook-ceph-cluster:
     logCollector:
       enabled: false
     removeOSDsIfOutAndSafeToRemove: true
+    storage:
+      useAllNodes: false
+      useAllDevices: false
+      config:
+        databaseSizeMB: "1024"
+        journalSizeMB: "1024"
+
+      nodes:
+        - name: "kubmaster1"
+          devices:
+            - name: "sda"
+              config:
+                storeType: bluestore
+
+        - name: "kubmaster2"
+          devices:
+            - name: "sda"
+              config:
+                storeType: bluestore
+
+        - name: "kubmaster3"
+          devices:
+            - name: "sda"
+              config:
+                storeType: bluestore
+
     resources:
       mgr:
         limits:

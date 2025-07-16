@@ -90,7 +90,9 @@ kubectl delete pod -n rook-ceph -l app=rook-ceph-operator
 
 kubectl -n rook-ceph logs -l app=rook-ceph-operator
 
+kubectl get deployments.apps -n rook-ceph
 
+kubectl rollout restart deployment rook-ceph-operator -n rook-ceph
 
 1- parar
 kubectl -n rook-ceph scale deployment rook-ceph-operator --replicas=0

@@ -78,6 +78,7 @@ git remote set-url --add --push origin git@github.com:candradebh/multiversonline
 
 kubectl get pods -n ollama
 kubectl exec -it -n ollama pod/ollama- -- bash
+ollama run gemma3n
 
 
 ## ERROS

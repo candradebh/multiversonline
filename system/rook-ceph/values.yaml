@@ -41,6 +41,12 @@ rook-ceph-cluster:
               config:
                 storeType: bluestore
 
+        - name: "kubnode2"
+          devices:
+            - name: "sdb"
+              config:
+                storeType: bluestore
+
     resources:
       mgr:
         limits:

@@ -11,6 +11,12 @@
       length: 32
       special: true
 
+- name: gitea.woodpecker
+  data:
+    - key: client_id
+      length: 32
+      special: false
+
 # Dex
 - name: dex.grafana
   data:

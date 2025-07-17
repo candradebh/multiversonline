@@ -36,9 +36,9 @@ Este repositório define a infraestrutura do projeto **Homelab Multiverso Online
 Criar VMS
 
 BC:24:11:8E:3E:F6 - 192.168.1.50 - kubmaster1
-BC:24:11:FB:96:1C - 192.168.1.51 - kubmaster1
-BC:24:11:CA:E2:86 - 192.168.1.52 - kubmaster1
-BC:24:11:8E:3E:F7 - 192.168.1.53 - kubmaster1
+BC:24:11:FB:96:1C - 192.168.1.51 - kubmaster2
+BC:24:11:CA:E2:86 - 192.168.1.52 - kubmaster3
+BC:24:11:8E:3E:F7 - 192.168.1.53 - kubnode1
 
 ## 🔧 Execução
 
